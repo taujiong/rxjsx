@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": ["alloy", "alloy/typescript"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "@typescript-eslint/consistent-type-imports": "error"
+  },
+  "ignorePatterns": ["dist"]
+}

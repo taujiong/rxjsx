@@ -1,0 +1,30 @@
+{
+  "name": "@rxjsx/dom",
+  "description": "dom render for rxjsx",
+  "type": "module",
+  "files": [
+    "/dist",
+    "/src",
+    "package.json",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "license": "MIT",
+  "repository": "taujiong/rxjsx",
+  "homepage": "https://github.com/taujiong/rxjsx",
+  "bugs": "https://github.com/taujiong/rxjsx/issues",
+  "keywords": [
+    "rxjsx",
+    "jsx",
+    "rxjs"
+  ],
+  "author": "taujiong <taujiong@outlook.com>"
+}
