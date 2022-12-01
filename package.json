@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev-web": "lerna run dev --scope web"
+    "dev:web": "lerna run dev --scope web",
+    "dev:cli": "lerna run dev --scope cli"
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown",

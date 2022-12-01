@@ -1,3 +1,3 @@
 # @rxjsx/dom
 
-dom render for rxjsx
+dom renderer for rxjsx

@@ -27,11 +27,22 @@ importers:
       typescript: 4.9.3
       vite: 3.2.4_@types+node@18.11.9
 
+  packages/console:
+    specifiers: {}
+
   packages/core:
     specifiers: {}
 
   packages/dom:
     specifiers: {}
+
+  playgrounds/cli:
+    specifiers:
+      '@rxjsx/console': '*'
+      '@rxjsx/core': '*'
+    dependencies:
+      '@rxjsx/console': link:../../packages/console
+      '@rxjsx/core': link:../../packages/core
 
   playgrounds/web:
     specifiers:

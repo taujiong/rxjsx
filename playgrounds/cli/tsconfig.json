@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../../packages",
+    "paths": {
+      "@rxjsx/core/*": ["./core/src/*"],
+      "@rxjsx/console/*": ["./console/src/*"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "cli",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build && node ./dist/cli.js"
+  },
+  "dependencies": {
+    "@rxjsx/core": "*",
+    "@rxjsx/console": "*"
+  }
+}

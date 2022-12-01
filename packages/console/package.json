@@ -1,6 +1,6 @@
 {
-  "name": "@rxjsx/dom",
-  "description": "dom renderer for rxjsx",
+  "name": "@rxjsx/console",
+  "description": "console renderer for rxjsx",
   "type": "module",
   "files": [
     "/dist",
@@ -25,8 +25,8 @@
     "rxjsx",
     "jsx",
     "rxjs",
-    "dom",
-    "web"
+    "console",
+    "cli"
   ],
   "author": "taujiong <taujiong@outlook.com>"
 }
