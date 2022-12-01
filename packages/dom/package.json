@@ -15,7 +15,12 @@
     }
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.19.0",
+    "jsdom": "^20.0.3"
   },
   "license": "MIT",
   "repository": "taujiong/rxjsx",

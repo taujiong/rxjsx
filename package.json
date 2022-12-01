@@ -4,7 +4,9 @@
   "scripts": {
     "prepare": "husky install",
     "dev:web": "lerna run dev --scope web",
-    "dev:cli": "lerna run dev --scope cli"
+    "test:dom": "lerna run test --scope @rxjsx/dom",
+    "dev:cli": "lerna run dev --scope cli",
+    "test:console": "lerna run test --scope @rxjsx/console"
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown",
@@ -21,6 +23,7 @@
     "lint-staged": "^13.0.4",
     "prettier": "^2.8.0",
     "typescript": "^4.9.3",
-    "vite": "^3.2.4"
+    "vite": "^3.2.4",
+    "vitest": "^0.25.3"
   }
 }
