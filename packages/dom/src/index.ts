@@ -1,1 +1,1 @@
-export const data = '@rxjsx/dom'
+export * from './renderer.js'

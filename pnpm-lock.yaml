@@ -37,10 +37,15 @@ importers:
 
   packages/dom:
     specifiers:
+      '@rxjsx/core': '*'
       '@testing-library/dom': ^8.19.0
+      csstype: ^3.1.1
       jsdom: ^20.0.3
+    dependencies:
+      '@rxjsx/core': link:../core
     devDependencies:
       '@testing-library/dom': 8.19.0
+      csstype: 3.1.1
       jsdom: 20.0.3
 
   playgrounds/cli:
@@ -2866,6 +2871,13 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       cssom: 0.3.8
+    dev: true
+
+  /csstype/3.1.1:
+    resolution:
+      {
+        integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==,
+      }
     dev: true
 
   /dargs/7.0.0:

@@ -5,7 +5,8 @@
     "browser": true
   },
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "error"
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/member-ordering": "off"
   },
   "ignorePatterns": ["dist"]
 }

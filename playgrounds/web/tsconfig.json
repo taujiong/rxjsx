@@ -5,7 +5,8 @@
     "paths": {
       "@rxjsx/core/*": ["./core/src/*"],
       "@rxjsx/dom/*": ["./dom/src/*"]
-    }
+    },
+    "jsxImportSource": "@rxjsx/dom"
   },
   "include": ["src"]
 }

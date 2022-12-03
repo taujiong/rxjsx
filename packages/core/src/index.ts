@@ -1,1 +1,3 @@
-export const data = '@rxjsx/core'
+export * from './jsx.js'
+export * from './render/index.js'
+export * from './utils.js'
