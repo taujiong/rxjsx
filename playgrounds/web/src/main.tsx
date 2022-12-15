@@ -1,5 +1,5 @@
-import { createRoot } from '@rxjsx/dom'
-import type { EventHandler } from '@rxjsx/dom/jsx/jsx.js'
+import type { EventHandler } from '@rxjsx/dom'
+import { render } from '@rxjsx/dom'
 
 interface ButtonProps {
   bgColor: string
@@ -30,5 +30,5 @@ export const RxactApp = () => {
   )
 }
 
-const root = createRoot(document.getElementById('root') as HTMLElement)
-root.render(<RxactApp />)
+const root = document.getElementById('root') as HTMLElement
+render(root)(<RxactApp />)

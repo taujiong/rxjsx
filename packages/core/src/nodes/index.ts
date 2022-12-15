@@ -1,4 +1,3 @@
-export * from './base.js'
 export * from './element.js'
 export * from './fragment.js'
 export * from './function.js'

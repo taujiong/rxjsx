@@ -4,9 +4,9 @@ import {
   ElementRenderNode,
   FragmentRenderNode,
   FunctionRenderNode,
-  RenderNode,
   TextRenderNode,
-} from './render/nodes/index.js'
+} from './nodes/index.js'
+import { RenderNode } from './render/index.js'
 
 export const Fragment = Symbol.for('JSX.FRAGMENT')
 export type FragmentType = typeof Fragment
