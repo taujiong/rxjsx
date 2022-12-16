@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
 import type { JsxElement, JsxIntrinsicElements } from '@rxjsx/core'
 import type { Properties } from 'csstype'
 

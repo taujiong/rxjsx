@@ -18,7 +18,6 @@ export class ElementRenderNode extends ConcreteRenderNode<ElementRenderContext> 
     Object.entries(this.ctx.props).forEach(([name, value]) => {
       const disposer = renderer.setAttribute(shape, name, value)
       if (disposer) {
-        this.disposers ??= []
         this.disposers.push(disposer)
       }
     })

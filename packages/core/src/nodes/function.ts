@@ -1,10 +1,10 @@
-import type { JsxElement } from '../jsx.js'
 import { convertToRenderNode } from '../jsx.js'
 import type { RenderNode, Shape } from '../render/index.js'
 import { ContainerRenderNode } from '../render/index.js'
+import type { FC } from '../utils.js'
 
 interface FunctionRenderContext {
-  fn: (props: any) => JsxElement
+  fn: FC
   props: {}
 }
 

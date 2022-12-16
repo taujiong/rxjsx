@@ -6,7 +6,8 @@
   },
   "rules": {
     "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/member-ordering": "off"
+    "@typescript-eslint/member-ordering": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
   "ignorePatterns": ["dist"]
 }

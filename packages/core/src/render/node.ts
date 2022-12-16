@@ -4,8 +4,6 @@ import type { ElementShape, Shape } from './shape.js'
 
 export abstract class RenderNode<TContext = any> {
   public constructor(protected ctx: TContext, protected childNodes?: RenderNode[]) {
-    console.log(ctx)
-
     let prevSiblingNode: RenderNode | null = null
     this.childNodes?.forEach((childNode) => {
       childNode.parentNode = this
@@ -44,7 +42,11 @@ export abstract class RenderNode<TContext = any> {
     return this.prevSiblingNode.asAnchorShape
   }
 
-  protected disposers?: DisposeFn[]
+  private _disposers?: DisposeFn[]
+  protected get disposers() {
+    if (this._disposers === undefined) this._disposers = []
+    return this._disposers
+  }
 
   public activate(): void {
     this.childNodes?.forEach((childNode) => childNode.activate())
@@ -52,7 +54,7 @@ export abstract class RenderNode<TContext = any> {
 
   public deactivate(): void {
     this.childNodes?.forEach((childNode) => childNode.deactivate())
-    this.disposers?.forEach((dispose) => dispose())
+    this._disposers?.forEach((dispose) => dispose())
   }
 }
 
@@ -72,8 +74,6 @@ export abstract class ConcreteRenderNode<TContext = any> extends RenderNode<TCon
 
   protected attach(): void {
     const renderer = Renderer.current
-    console.log(this)
-
     renderer.insertAfter(this.parentShape, this.prevSiblingShape, this.shape!)
   }
 

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
 import type { DisposeFn, ElementShape, JsxText, Shape, TextShape } from '@rxjsx/core'
 import { createRenderFn, isFunction, Renderer } from '@rxjsx/core'
 import { isEvent, isSvg } from './utils.js'
