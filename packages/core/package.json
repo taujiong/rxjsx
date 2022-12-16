@@ -17,6 +17,12 @@
   "scripts": {
     "build": "vite build"
   },
+  "peerDependencies": {
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "rxjs": "^7.8.0"
+  },
   "license": "MIT",
   "repository": "taujiong/rxjsx",
   "homepage": "https://github.com/taujiong/rxjsx",

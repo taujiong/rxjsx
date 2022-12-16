@@ -1,3 +1,5 @@
+import type { Observable } from 'rxjs'
+import { combineLatest, isObservable } from 'rxjs'
 import { convertToRenderNode } from '../jsx.js'
 import type { RenderNode, Shape } from '../render/index.js'
 import { ContainerRenderNode } from '../render/index.js'
@@ -16,8 +18,8 @@ export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContex
     return this._internalNode.asAnchorShape
   }
 
-  public override activate(): void {
-    const jsxElement = this.ctx.fn(this.ctx.props)
+  private internalActivate(props: {}): void {
+    const jsxElement = this.ctx.fn(props)
     this._internalNode = convertToRenderNode(jsxElement) ?? null
     if (!this._internalNode) return
 
@@ -25,9 +27,36 @@ export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContex
     this._internalNode.activate()
   }
 
-  public override deactivate(): void {
+  private internalDeactivate(): void {
     this._internalNode?.deactivate()
     this._internalNode = null
+  }
+
+  public override activate(): void {
+    const observableProps = Object.entries(this.ctx.props).filter((entry) => isObservable(entry[1]))
+
+    if (observableProps.length === 0) {
+      this.internalActivate(this.ctx.props)
+      return
+    }
+
+    const newProps$ = combineLatest(
+      Object.fromEntries(observableProps) as Record<string, Observable<any>>
+    )
+    const subscription = newProps$.subscribe((newProps) => {
+      const fullProps = {
+        ...this.ctx.props,
+        ...newProps,
+      }
+
+      this.internalDeactivate()
+      this.internalActivate(fullProps)
+    })
+    this.disposers.push(() => subscription.unsubscribe())
+  }
+
+  public override deactivate(): void {
+    this.internalDeactivate()
     super.deactivate()
   }
 }

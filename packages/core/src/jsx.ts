@@ -1,3 +1,4 @@
+import { isObservable } from 'rxjs'
 import {
   ElementRenderNode,
   FragmentRenderNode,
@@ -5,6 +6,7 @@ import {
   TextRenderNode,
 } from './nodes/index.js'
 import { RenderNode } from './render/index.js'
+import type { ObservableMaybe } from './utils.js'
 
 export const Fragment = Symbol.for('JSX.FRAGMENT')
 export type FragmentType = typeof Fragment
@@ -22,7 +24,7 @@ export type JsxText = string | number | bigint
  * the result of a jsx expression,
  * this is an internal identifier for the [jsx result type](https://www.typescriptlang.org/docs/handbook/jsx.html#the-jsx-result-type)
  */
-export type JsxElement = JsxText | RenderNode | null | undefined | false
+export type JsxElement = ObservableMaybe<JsxText> | RenderNode | null | undefined | false
 
 const TEXT_TYPES = ['string', 'number', 'bigint']
 const isJsxText = (val: unknown): val is JsxText => {
@@ -34,7 +36,7 @@ export const convertToRenderNode = (child: JsxElement): RenderNode | undefined =
 
   if (child instanceof RenderNode) return child
 
-  if (isJsxText(child)) {
+  if (isJsxText(child) || isObservable(child)) {
     return new TextRenderNode({
       content: child,
     })

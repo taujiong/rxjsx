@@ -1,4 +1,4 @@
-import type { DisposeFn } from '../hooks/useDispose.js'
+import type { DisposeFn } from '../hooks/dispose.js'
 import type { JsxElement, JsxText } from '../jsx.js'
 import { convertToRenderNode } from '../jsx.js'
 import { TextRenderNode } from '../nodes/index.js'

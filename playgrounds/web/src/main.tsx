@@ -1,22 +1,7 @@
-import type { EventHandler } from '@rxjsx/dom'
 import { render } from '@rxjsx/dom'
-
-interface ButtonProps {
-  bgColor: string
-  text: string
-  onClick: EventHandler<HTMLButtonElement, MouseEvent>
-}
-
-const Button = ({ bgColor, onClick, text }: ButtonProps) => (
-  <>
-    <button style={{ backgroundColor: bgColor }} onClick={onClick}>
-      {text}
-    </button>
-  </>
-)
+import { Counter } from './Counter.js'
 
 export const RxactApp = () => {
-  const buttonText = 'click me'
   const isFalse = false
   const isTrue = true
 
@@ -25,7 +10,7 @@ export const RxactApp = () => {
       <h1>Rxjsx App</h1>
       {isTrue && 'should show'}
       {isFalse && 'should not show'}
-      <Button bgColor="#ff0000" text={buttonText} onClick={() => alert(`you ${buttonText}`)} />
+      <Counter step={2} />
     </>
   )
 }

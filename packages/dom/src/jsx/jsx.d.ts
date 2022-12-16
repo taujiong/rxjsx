@@ -1,4 +1,4 @@
-import type { JsxElement, JsxIntrinsicElements } from '@rxjsx/core'
+import type { JsxChild, JsxElement, JsxIntrinsicElements, ObservableMaybe } from '@rxjsx/core'
 import type { Properties } from 'csstype'
 
 export type EventHandler<TTarget, TEvent extends Event = Event> = (
@@ -436,7 +436,7 @@ interface AriaAttributes {
   'aria-valuenow'?: number | string
   /** Defines the human readable text alternative of aria-valuenow for a range widget. */
   'aria-valuetext'?: string
-  role?:
+  role?: ObservableMaybe<
     | 'alert'
     | 'alertdialog'
     | 'application'
@@ -507,430 +507,434 @@ interface AriaAttributes {
     | 'tree'
     | 'treegrid'
     | 'treeitem'
+  >
 }
 
 interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-  accessKey?: string
-  class?: string
-  contenteditable?: boolean | 'inherit'
-  contextmenu?: string
-  dir?: HTMLDir
-  draggable?: boolean
-  hidden?: boolean
-  id?: string
-  lang?: string
-  spellcheck?: boolean
-  style?: CSSProperties | string
-  tabindex?: number | string
-  title?: string
-  translate?: 'yes' | 'no'
-  about?: string
-  datatype?: string
-  inlist?: any
-  prefix?: string
-  property?: string
-  resource?: string
-  typeof?: string
-  vocab?: string
-  autocapitalize?: HTMLAutocapitalize
-  slot?: string
-  color?: string
-  itemprop?: string
-  itemscope?: boolean
-  itemtype?: string
-  itemid?: string
-  itemref?: string
-  part?: string
-  exportparts?: string
-  inputmode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
-
-  contentEditable?: boolean | 'inherit'
-  contextMenu?: string
-  tabIndex?: number | string
-  autoCapitalize?: HTMLAutocapitalize
-  itemProp?: string
-  itemScope?: boolean
-  itemType?: string
-  itemId?: string
-  itemRef?: string
-  exportParts?: string
-  inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  accessKey?: ObservableMaybe<string>
+  class?: ObservableMaybe<string>
+  contenteditable?: ObservableMaybe<boolean | 'inherit'>
+  contextmenu?: ObservableMaybe<string>
+  dir?: ObservableMaybe<HTMLDir>
+  draggable?: ObservableMaybe<boolean>
+  hidden?: ObservableMaybe<boolean>
+  id?: ObservableMaybe<string>
+  lang?: ObservableMaybe<string>
+  spellcheck?: ObservableMaybe<boolean>
+  style?: ObservableMaybe<CSSProperties | string>
+  tabindex?: ObservableMaybe<number | string>
+  title?: ObservableMaybe<string>
+  translate?: ObservableMaybe<'yes' | 'no'>
+  about?: ObservableMaybe<string>
+  datatype?: ObservableMaybe<string>
+  inlist?: ObservableMaybe<any>
+  prefix?: ObservableMaybe<string>
+  property?: ObservableMaybe<string>
+  resource?: ObservableMaybe<string>
+  typeof?: ObservableMaybe<string>
+  vocab?: ObservableMaybe<string>
+  autocapitalize?: ObservableMaybe<HTMLAutocapitalize>
+  slot?: ObservableMaybe<string>
+  color?: ObservableMaybe<string>
+  itemprop?: ObservableMaybe<string>
+  itemscope?: ObservableMaybe<boolean>
+  itemtype?: ObservableMaybe<string>
+  itemid?: ObservableMaybe<string>
+  itemref?: ObservableMaybe<string>
+  part?: ObservableMaybe<string>
+  exportparts?: ObservableMaybe<string>
+  inputmode?: ObservableMaybe<
+    'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  >
+  contentEditable?: ObservableMaybe<boolean | 'inherit'>
+  contextMenu?: ObservableMaybe<string>
+  tabIndex?: ObservableMaybe<number | string>
+  autoCapitalize?: ObservableMaybe<HTMLAutocapitalize>
+  itemProp?: ObservableMaybe<string>
+  itemScope?: ObservableMaybe<boolean>
+  itemType?: ObservableMaybe<string>
+  itemId?: ObservableMaybe<string>
+  itemRef?: ObservableMaybe<string>
+  exportParts?: ObservableMaybe<string>
+  inputMode?: ObservableMaybe<
+    'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'
+  >
 }
 interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
-  download?: any
-  href?: string
-  hreflang?: string
-  media?: string
-  ping?: string
-  referrerpolicy?: HTMLReferrerPolicy
-  rel?: string
-  target?: string
-  type?: string
-  referrerPolicy?: HTMLReferrerPolicy
+  download?: ObservableMaybe<any>
+  href?: ObservableMaybe<string>
+  hreflang?: ObservableMaybe<string>
+  media?: ObservableMaybe<string>
+  ping?: ObservableMaybe<string>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  rel?: ObservableMaybe<string>
+  target?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
 }
 type AudioHTMLAttributes<T> = MediaHTMLAttributes<T>
 interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
-  alt?: string
-  coords?: string
-  download?: any
-  href?: string
-  hreflang?: string
-  ping?: string
-  referrerpolicy?: HTMLReferrerPolicy
-  rel?: string
-  shape?: 'rect' | 'circle' | 'poly' | 'default'
-  target?: string
-  referrerPolicy?: HTMLReferrerPolicy
+  alt?: ObservableMaybe<string>
+  coords?: ObservableMaybe<string>
+  download?: ObservableMaybe<any>
+  href?: ObservableMaybe<string>
+  hreflang?: ObservableMaybe<string>
+  ping?: ObservableMaybe<string>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  rel?: ObservableMaybe<string>
+  shape?: ObservableMaybe<'rect' | 'circle' | 'poly' | 'default'>
+  target?: ObservableMaybe<string>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
 }
 interface BaseHTMLAttributes<T> extends HTMLAttributes<T> {
-  href?: string
-  target?: string
+  href?: ObservableMaybe<string>
+  target?: ObservableMaybe<string>
 }
 interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
-  cite?: string
+  cite?: ObservableMaybe<string>
 }
 interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
-  autofocus?: boolean
-  disabled?: boolean
-  form?: string
-  formaction?: string
-  formenctype?: HTMLFormEncType
-  formmethod?: HTMLFormMethod
-  formnovalidate?: boolean
-  formtarget?: string
-  name?: string
-  type?: 'submit' | 'reset' | 'button'
-  value?: string
-  formAction?: string
-  formEnctype?: HTMLFormEncType
-  formMethod?: HTMLFormMethod
-  formNoValidate?: boolean
-  formTarget?: string
+  autofocus?: ObservableMaybe<boolean>
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  formaction?: ObservableMaybe<string>
+  formenctype?: ObservableMaybe<HTMLFormEncType>
+  formmethod?: ObservableMaybe<HTMLFormMethod>
+  formnovalidate?: ObservableMaybe<boolean>
+  formtarget?: ObservableMaybe<string>
+  name?: ObservableMaybe<string>
+  type?: ObservableMaybe<'submit' | 'reset' | 'button'>
+  value?: ObservableMaybe<string>
+  formAction?: ObservableMaybe<string>
+  formEnctype?: ObservableMaybe<HTMLFormEncType>
+  formMethod?: ObservableMaybe<HTMLFormMethod>
+  formNoValidate?: ObservableMaybe<boolean>
+  formTarget?: ObservableMaybe<string>
 }
 interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
-  width?: number | string
-  height?: number | string
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
 }
 interface ColHTMLAttributes<T> extends HTMLAttributes<T> {
-  span?: number | string
-  width?: number | string
+  span?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
 }
 interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
-  span?: number | string
+  span?: ObservableMaybe<number | string>
 }
 interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
-  value?: string | string[] | number
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface DetailsHtmlAttributes<T> extends HTMLAttributes<T> {
-  open?: boolean
+  open?: ObservableMaybe<boolean>
   onToggle?: EventHandler<T, Event>
   ontoggle?: EventHandler<T, Event>
 }
 interface DialogHtmlAttributes<T> extends HTMLAttributes<T> {
-  open?: boolean
+  open?: ObservableMaybe<boolean>
 }
 interface EmbedHTMLAttributes<T> extends HTMLAttributes<T> {
-  height?: number | string
-  src?: string
-  type?: string
-  width?: number | string
+  height?: ObservableMaybe<number | string>
+  src?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
+  width?: ObservableMaybe<number | string>
 }
 interface FieldsetHTMLAttributes<T> extends HTMLAttributes<T> {
-  disabled?: boolean
-  form?: string
-  name?: string
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  name?: ObservableMaybe<string>
 }
 interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
-  acceptcharset?: string
-  action?: string
-  autocomplete?: string
-  encoding?: HTMLFormEncType
-  enctype?: HTMLFormEncType
-  method?: HTMLFormMethod
-  name?: string
-  novalidate?: boolean
-  target?: string
-  acceptCharset?: string
-  noValidate?: boolean
+  acceptcharset?: ObservableMaybe<string>
+  action?: ObservableMaybe<string>
+  autocomplete?: ObservableMaybe<string>
+  encoding?: ObservableMaybe<HTMLFormEncType>
+  enctype?: ObservableMaybe<HTMLFormEncType>
+  method?: ObservableMaybe<HTMLFormMethod>
+  name?: ObservableMaybe<string>
+  novalidate?: ObservableMaybe<boolean>
+  target?: ObservableMaybe<string>
+  acceptCharset?: ObservableMaybe<string>
+  noValidate?: ObservableMaybe<boolean>
 }
 interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
-  allow?: string
-  allowfullscreen?: boolean
-  height?: number | string
-  name?: string
-  referrerpolicy?: HTMLReferrerPolicy
+  allow?: ObservableMaybe<string>
+  allowfullscreen?: ObservableMaybe<boolean>
+  height?: ObservableMaybe<number | string>
+  name?: ObservableMaybe<string>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
   sandbox?: HTMLIframeSandbox | string
-  src?: string
-  srcdoc?: string
-  width?: number | string
-  referrerPolicy?: HTMLReferrerPolicy
+  src?: ObservableMaybe<string>
+  srcdoc?: ObservableMaybe<string>
+  width?: ObservableMaybe<number | string>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
 }
 interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
-  alt?: string
-  crossorigin?: HTMLCrossorigin
-  decoding?: 'sync' | 'async' | 'auto'
-  height?: number | string
-  ismap?: boolean
-  isMap?: boolean
-  loading?: 'eager' | 'lazy'
-  referrerpolicy?: HTMLReferrerPolicy
-  referrerPolicy?: HTMLReferrerPolicy
-  sizes?: string
-  src?: string
-  srcset?: string
-  srcSet?: string
-  usemap?: string
-  useMap?: string
-  width?: number | string
-  crossOrigin?: HTMLCrossorigin
+  alt?: ObservableMaybe<string>
+  crossorigin?: ObservableMaybe<HTMLCrossorigin>
+  decoding?: ObservableMaybe<'sync' | 'async' | 'auto'>
+  height?: ObservableMaybe<number | string>
+  ismap?: ObservableMaybe<boolean>
+  isMap?: ObservableMaybe<boolean>
+  loading?: ObservableMaybe<'eager' | 'lazy'>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  sizes?: ObservableMaybe<string>
+  src?: ObservableMaybe<string>
+  srcset?: ObservableMaybe<string>
+  srcSet?: ObservableMaybe<string>
+  usemap?: ObservableMaybe<string>
+  useMap?: ObservableMaybe<string>
+  width?: ObservableMaybe<number | string>
+  crossOrigin?: ObservableMaybe<HTMLCrossorigin>
 }
 interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
-  accept?: string
-  alt?: string
-  autocomplete?: string
-  autofocus?: boolean
-  capture?: boolean | string
-  checked?: boolean
-  crossorigin?: HTMLCrossorigin
-  disabled?: boolean
-  form?: string
-  formaction?: string
-  formenctype?: HTMLFormEncType
-  formmethod?: HTMLFormMethod
-  formnovalidate?: boolean
-  formtarget?: string
-  height?: number | string
-  list?: string
-  max?: number | string
-  maxlength?: number | string
-  min?: number | string
-  minlength?: number | string
-  multiple?: boolean
-  name?: string
-  pattern?: string
-  placeholder?: string
-  readonly?: boolean
-  required?: boolean
-  size?: number | string
-  src?: string
-  step?: number | string
-  type?: string
-  value?: string | string[] | number
-  width?: number | string
-  crossOrigin?: HTMLCrossorigin
-  formAction?: string
-  formEnctype?: HTMLFormEncType
-  formMethod?: HTMLFormMethod
-  formNoValidate?: boolean
-  formTarget?: string
-  maxLength?: number | string
-  minLength?: number | string
-  readOnly?: boolean
+  accept?: ObservableMaybe<string>
+  alt?: ObservableMaybe<string>
+  autocomplete?: ObservableMaybe<string>
+  autofocus?: ObservableMaybe<boolean>
+  capture?: ObservableMaybe<boolean | string>
+  checked?: ObservableMaybe<boolean>
+  crossorigin?: ObservableMaybe<HTMLCrossorigin>
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  formaction?: ObservableMaybe<string>
+  formenctype?: ObservableMaybe<HTMLFormEncType>
+  formmethod?: ObservableMaybe<HTMLFormMethod>
+  formnovalidate?: ObservableMaybe<boolean>
+  formtarget?: ObservableMaybe<string>
+  height?: ObservableMaybe<number | string>
+  list?: ObservableMaybe<string>
+  max?: ObservableMaybe<number | string>
+  maxlength?: ObservableMaybe<number | string>
+  min?: ObservableMaybe<number | string>
+  minlength?: ObservableMaybe<number | string>
+  multiple?: ObservableMaybe<boolean>
+  name?: ObservableMaybe<string>
+  pattern?: ObservableMaybe<string>
+  placeholder?: ObservableMaybe<string>
+  readonly?: ObservableMaybe<boolean>
+  required?: ObservableMaybe<boolean>
+  size?: ObservableMaybe<number | string>
+  src?: ObservableMaybe<string>
+  step?: ObservableMaybe<number | string>
+  type?: ObservableMaybe<string>
+  value?: ObservableMaybe<string | string[] | number>
+  width?: ObservableMaybe<number | string>
+  crossOrigin?: ObservableMaybe<HTMLCrossorigin>
+  formAction?: ObservableMaybe<string>
+  formEnctype?: ObservableMaybe<HTMLFormEncType>
+  formMethod?: ObservableMaybe<HTMLFormMethod>
+  formNoValidate?: ObservableMaybe<boolean>
+  formTarget?: ObservableMaybe<string>
+  maxLength?: ObservableMaybe<number | string>
+  minLength?: ObservableMaybe<number | string>
+  readOnly?: ObservableMaybe<boolean>
 }
 interface InsHTMLAttributes<T> extends HTMLAttributes<T> {
-  cite?: string
-  dateTime?: string
+  cite?: ObservableMaybe<string>
+  dateTime?: ObservableMaybe<string>
 }
 interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
-  autofocus?: boolean
-  challenge?: string
-  disabled?: boolean
-  form?: string
-  keytype?: string
-  keyparams?: string
-  name?: string
+  autofocus?: ObservableMaybe<boolean>
+  challenge?: ObservableMaybe<string>
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  keytype?: ObservableMaybe<string>
+  keyparams?: ObservableMaybe<string>
+  name?: ObservableMaybe<string>
 }
 interface LabelHTMLAttributes<T> extends HTMLAttributes<T> {
-  for?: string
-  form?: string
+  for?: ObservableMaybe<string>
+  form?: ObservableMaybe<string>
 }
 interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
-  value?: number | string
+  value?: ObservableMaybe<number | string>
 }
 interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
-  as?: HTMLLinkAs
-  crossorigin?: HTMLCrossorigin
-  disabled?: boolean
-  href?: string
-  hreflang?: string
-  integrity?: string
-  media?: string
-  referrerpolicy?: HTMLReferrerPolicy
-  rel?: string
-  sizes?: string
-  type?: string
-  crossOrigin?: HTMLCrossorigin
-  referrerPolicy?: HTMLReferrerPolicy
+  as?: ObservableMaybe<HTMLLinkAs>
+  crossorigin?: ObservableMaybe<HTMLCrossorigin>
+  disabled?: ObservableMaybe<boolean>
+  href?: ObservableMaybe<string>
+  hreflang?: ObservableMaybe<string>
+  integrity?: ObservableMaybe<string>
+  media?: ObservableMaybe<string>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  rel?: ObservableMaybe<string>
+  sizes?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
+  crossOrigin?: ObservableMaybe<HTMLCrossorigin>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
 }
 interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
-  name?: string
+  name?: ObservableMaybe<string>
 }
 interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
-  autoplay?: boolean
-  controls?: boolean
-  crossorigin?: HTMLCrossorigin
-  loop?: boolean
-  mediagroup?: string
-  muted?: boolean
-  preload?: 'none' | 'metadata' | 'auto' | ''
-  src?: string
-  crossOrigin?: HTMLCrossorigin
-  mediaGroup?: string
+  autoplay?: ObservableMaybe<boolean>
+  controls?: ObservableMaybe<boolean>
+  crossorigin?: ObservableMaybe<HTMLCrossorigin>
+  loop?: ObservableMaybe<boolean>
+  mediagroup?: ObservableMaybe<string>
+  muted?: ObservableMaybe<boolean>
+  preload?: ObservableMaybe<'none' | 'metadata' | 'auto' | ''>
+  src?: ObservableMaybe<string>
+  crossOrigin?: ObservableMaybe<HTMLCrossorigin>
+  mediaGroup?: ObservableMaybe<string>
 }
 interface MenuHTMLAttributes<T> extends HTMLAttributes<T> {
-  label?: string
-  type?: 'context' | 'toolbar'
+  label?: ObservableMaybe<string>
+  type?: ObservableMaybe<'context' | 'toolbar'>
 }
 interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
-  charset?: string
-  content?: string
-  httpequiv?: string
-  name?: string
-  httpEquiv?: string
+  charset?: ObservableMaybe<string>
+  content?: ObservableMaybe<string>
+  httpequiv?: ObservableMaybe<string>
+  name?: ObservableMaybe<string>
+  httpEquiv?: ObservableMaybe<string>
 }
 interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
-  form?: string
-  high?: number | string
-  low?: number | string
-  max?: number | string
-  min?: number | string
-  optimum?: number | string
-  value?: string | string[] | number
+  form?: ObservableMaybe<string>
+  high?: ObservableMaybe<number | string>
+  low?: ObservableMaybe<number | string>
+  max?: ObservableMaybe<number | string>
+  min?: ObservableMaybe<number | string>
+  optimum?: ObservableMaybe<number | string>
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
-  cite?: string
+  cite?: ObservableMaybe<string>
 }
 interface ObjectHTMLAttributes<T> extends HTMLAttributes<T> {
-  data?: string
-  form?: string
-  height?: number | string
-  name?: string
-  type?: string
-  usemap?: string
-  width?: number | string
-  useMap?: string
+  data?: ObservableMaybe<string>
+  form?: ObservableMaybe<string>
+  height?: ObservableMaybe<number | string>
+  name?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
+  usemap?: ObservableMaybe<string>
+  width?: ObservableMaybe<number | string>
+  useMap?: ObservableMaybe<string>
 }
 interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
-  reversed?: boolean
-  start?: number | string
-  type?: '1' | 'a' | 'A' | 'i' | 'I'
+  reversed?: ObservableMaybe<boolean>
+  start?: ObservableMaybe<number | string>
+  type?: ObservableMaybe<'1' | 'a' | 'A' | 'i' | 'I'>
 }
 interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
-  disabled?: boolean
-  label?: string
+  disabled?: ObservableMaybe<boolean>
+  label?: ObservableMaybe<string>
 }
 interface OptionHTMLAttributes<T> extends HTMLAttributes<T> {
-  disabled?: boolean
-  label?: string
-  selected?: boolean
-  value?: string | string[] | number
+  disabled?: ObservableMaybe<boolean>
+  label?: ObservableMaybe<string>
+  selected?: ObservableMaybe<boolean>
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
-  form?: string
-  for?: string
-  name?: string
+  form?: ObservableMaybe<string>
+  for?: ObservableMaybe<string>
+  name?: ObservableMaybe<string>
 }
 interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
-  name?: string
-  value?: string | string[] | number
+  name?: ObservableMaybe<string>
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
-  max?: number | string
-  value?: string | string[] | number
+  max?: ObservableMaybe<number | string>
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
-  async?: boolean
-  charset?: string
-  crossorigin?: HTMLCrossorigin
-  defer?: boolean
-  integrity?: string
-  nomodule?: boolean
-  nonce?: string
-  referrerpolicy?: HTMLReferrerPolicy
-  src?: string
-  type?: string
-  crossOrigin?: HTMLCrossorigin
-  noModule?: boolean
-  referrerPolicy?: HTMLReferrerPolicy
+  async?: ObservableMaybe<boolean>
+  charset?: ObservableMaybe<string>
+  crossorigin?: ObservableMaybe<HTMLCrossorigin>
+  defer?: ObservableMaybe<boolean>
+  integrity?: ObservableMaybe<string>
+  nomodule?: ObservableMaybe<boolean>
+  nonce?: ObservableMaybe<string>
+  referrerpolicy?: ObservableMaybe<HTMLReferrerPolicy>
+  src?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
+  crossOrigin?: ObservableMaybe<HTMLCrossorigin>
+  noModule?: ObservableMaybe<boolean>
+  referrerPolicy?: ObservableMaybe<HTMLReferrerPolicy>
 }
 interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
-  autocomplete?: string
-  autofocus?: boolean
-  disabled?: boolean
-  form?: string
-  multiple?: boolean
-  name?: string
-  required?: boolean
-  size?: number | string
-  value?: string | string[] | number
+  autocomplete?: ObservableMaybe<string>
+  autofocus?: ObservableMaybe<boolean>
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  multiple?: ObservableMaybe<boolean>
+  name?: ObservableMaybe<string>
+  required?: ObservableMaybe<boolean>
+  size?: ObservableMaybe<number | string>
+  value?: ObservableMaybe<string | string[] | number>
 }
 interface HTMLSlotElementAttributes<T = HTMLSlotElement> extends HTMLAttributes<T> {
-  name?: string
+  name?: ObservableMaybe<string>
 }
 interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
-  media?: string
-  sizes?: string
-  src?: string
-  srcset?: string
-  type?: string
+  media?: ObservableMaybe<string>
+  sizes?: ObservableMaybe<string>
+  src?: ObservableMaybe<string>
+  srcset?: ObservableMaybe<string>
+  type?: ObservableMaybe<string>
 }
 interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
-  media?: string
-  nonce?: string
-  scoped?: boolean
-  type?: string
+  media?: ObservableMaybe<string>
+  nonce?: ObservableMaybe<string>
+  scoped?: ObservableMaybe<boolean>
+  type?: ObservableMaybe<string>
 }
 interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
-  colspan?: number | string
-  headers?: string
-  rowspan?: number | string
-  colSpan?: number | string
-  rowSpan?: number | string
+  colspan?: ObservableMaybe<number | string>
+  headers?: ObservableMaybe<string>
+  rowspan?: ObservableMaybe<number | string>
+  colSpan?: ObservableMaybe<number | string>
+  rowSpan?: ObservableMaybe<number | string>
 }
 interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
-  autocomplete?: string
-  autofocus?: boolean
-  cols?: number | string
-  dirname?: string
-  disabled?: boolean
-  form?: string
-  maxlength?: number | string
-  minlength?: number | string
-  name?: string
-  placeholder?: string
-  readonly?: boolean
-  required?: boolean
-  rows?: number | string
-  value?: string | string[] | number
-  wrap?: 'hard' | 'soft' | 'off'
-  maxLength?: number | string
-  minLength?: number | string
-  readOnly?: boolean
+  autocomplete?: ObservableMaybe<string>
+  autofocus?: ObservableMaybe<boolean>
+  cols?: ObservableMaybe<number | string>
+  dirname?: ObservableMaybe<string>
+  disabled?: ObservableMaybe<boolean>
+  form?: ObservableMaybe<string>
+  maxlength?: ObservableMaybe<number | string>
+  minlength?: ObservableMaybe<number | string>
+  name?: ObservableMaybe<string>
+  placeholder?: ObservableMaybe<string>
+  readonly?: ObservableMaybe<boolean>
+  required?: ObservableMaybe<boolean>
+  rows?: ObservableMaybe<number | string>
+  value?: ObservableMaybe<string | string[] | number>
+  wrap?: ObservableMaybe<'hard' | 'soft' | 'off'>
+  maxLength?: ObservableMaybe<number | string>
+  minLength?: ObservableMaybe<number | string>
+  readOnly?: ObservableMaybe<boolean>
 }
 interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
-  colspan?: number | string
-  headers?: string
-  rowspan?: number | string
-  colSpan?: number | string
-  rowSpan?: number | string
-  scope?: 'col' | 'row' | 'rowgroup' | 'colgroup'
+  colspan?: ObservableMaybe<number | string>
+  headers?: ObservableMaybe<string>
+  rowspan?: ObservableMaybe<number | string>
+  colSpan?: ObservableMaybe<number | string>
+  rowSpan?: ObservableMaybe<number | string>
+  scope?: ObservableMaybe<'col' | 'row' | 'rowgroup' | 'colgroup'>
 }
 interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
-  datetime?: string
-  dateTime?: string
+  datetime?: ObservableMaybe<string>
+  dateTime?: ObservableMaybe<string>
 }
 interface TrackHTMLAttributes<T> extends HTMLAttributes<T> {
-  default?: boolean
-  kind?: 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata'
-  label?: string
-  src?: string
-  srclang?: string
+  default?: ObservableMaybe<boolean>
+  kind?: ObservableMaybe<'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata'>
+  label?: ObservableMaybe<string>
+  src?: ObservableMaybe<string>
+  srclang?: ObservableMaybe<string>
 }
 interface VideoHTMLAttributes<T> extends MediaHTMLAttributes<T> {
-  height?: number | string
-  playsinline?: boolean
-  poster?: string
-  width?: number | string
+  height?: ObservableMaybe<number | string>
+  playsinline?: ObservableMaybe<boolean>
+  poster?: ObservableMaybe<string>
+  width?: ObservableMaybe<number | string>
 }
 type SVGPreserveAspectRatio =
   | 'none'
@@ -993,54 +997,54 @@ type ImagePreserveAspectRatio =
   | 'defer xMaxYMax slice'
 type SVGUnits = 'userSpaceOnUse' | 'objectBoundingBox'
 interface CoreSVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-  id?: string
-  lang?: string
-  tabIndex?: number | string
-  tabindex?: number | string
+  id?: ObservableMaybe<string>
+  lang?: ObservableMaybe<string>
+  tabIndex?: ObservableMaybe<number | string>
+  tabindex?: ObservableMaybe<number | string>
 }
 interface StylableSVGAttributes {
-  class?: string
-  style?: CSSProperties | string
+  class?: ObservableMaybe<string>
+  style?: ObservableMaybe<CSSProperties | string>
 }
 interface TransformableSVGAttributes {
-  transform?: string
+  transform?: ObservableMaybe<string>
 }
 interface ConditionalProcessingSVGAttributes {
-  requiredExtensions?: string
-  requiredFeatures?: string
-  systemLanguage?: string
+  requiredExtensions?: ObservableMaybe<string>
+  requiredFeatures?: ObservableMaybe<string>
+  systemLanguage?: ObservableMaybe<string>
 }
 interface ExternalResourceSVGAttributes {
-  externalResourcesRequired?: 'true' | 'false'
+  externalResourcesRequired?: ObservableMaybe<'true' | 'false'>
 }
 interface AnimationTimingSVGAttributes {
-  begin?: string
-  dur?: string
-  end?: string
-  min?: string
-  max?: string
-  restart?: 'always' | 'whenNotActive' | 'never'
-  repeatCount?: number | 'indefinite'
-  repeatDur?: string
-  fill?: 'freeze' | 'remove'
+  begin?: ObservableMaybe<string>
+  dur?: ObservableMaybe<string>
+  end?: ObservableMaybe<string>
+  min?: ObservableMaybe<string>
+  max?: ObservableMaybe<string>
+  restart?: ObservableMaybe<'always' | 'whenNotActive' | 'never'>
+  repeatCount?: ObservableMaybe<number | 'indefinite'>
+  repeatDur?: ObservableMaybe<string>
+  fill?: ObservableMaybe<'freeze' | 'remove'>
 }
 interface AnimationValueSVGAttributes {
-  calcMode?: 'discrete' | 'linear' | 'paced' | 'spline'
-  values?: string
-  keyTimes?: string
-  keySplines?: string
-  from?: number | string
-  to?: number | string
-  by?: number | string
+  calcMode?: ObservableMaybe<'discrete' | 'linear' | 'paced' | 'spline'>
+  values?: ObservableMaybe<string>
+  keyTimes?: ObservableMaybe<string>
+  keySplines?: ObservableMaybe<string>
+  from?: ObservableMaybe<number | string>
+  to?: ObservableMaybe<number | string>
+  by?: ObservableMaybe<number | string>
 }
 interface AnimationAdditionSVGAttributes {
-  attributeName?: string
-  additive?: 'replace' | 'sum'
-  accumulate?: 'none' | 'sum'
+  attributeName?: ObservableMaybe<string>
+  additive?: ObservableMaybe<'replace' | 'sum'>
+  accumulate?: ObservableMaybe<'none' | 'sum'>
 }
 interface AnimationAttributeTargetSVGAttributes {
-  attributeName?: string
-  attributeType?: 'CSS' | 'XML' | 'auto'
+  attributeName?: ObservableMaybe<string>
+  attributeType?: ObservableMaybe<'CSS' | 'XML' | 'auto'>
 }
 interface PresentationSVGAttributes {
   'alignment-baseline'?:
@@ -1057,18 +1061,18 @@ interface PresentationSVGAttributes {
     | 'hanging'
     | 'mathematical'
     | 'inherit'
-  'baseline-shift'?: number | string
-  clip?: string
-  'clip-path'?: string
+  'baseline-shift'?: ObservableMaybe<number | string>
+  clip?: ObservableMaybe<string>
+  'clip-path'?: ObservableMaybe<string>
   'clip-rule'?: 'nonzero' | 'evenodd' | 'inherit'
-  color?: string
+  color?: ObservableMaybe<string>
   'color-interpolation'?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit'
   'color-interpolation-filters'?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit'
-  'color-profile'?: string
+  'color-profile'?: ObservableMaybe<string>
   'color-rendering'?: 'auto' | 'optimizeSpeed' | 'optimizeQuality' | 'inherit'
-  cursor?: string
+  cursor?: ObservableMaybe<string>
   direction?: 'ltr' | 'rtl' | 'inherit'
-  display?: string
+  display?: ObservableMaybe<string>
   'dominant-baseline'?:
     | 'auto'
     | 'text-bottom'
@@ -1080,33 +1084,33 @@ interface PresentationSVGAttributes {
     | 'hanging'
     | 'text-top'
     | 'inherit'
-  'enable-background'?: string
-  fill?: string
-  'fill-opacity'?: number | string | 'inherit'
-  'fill-rule'?: 'nonzero' | 'evenodd' | 'inherit'
-  filter?: string
-  'flood-color'?: string
-  'flood-opacity'?: number | string | 'inherit'
-  'font-family'?: string
-  'font-size'?: string
-  'font-size-adjust'?: number | string
-  'font-stretch'?: string
-  'font-style'?: 'normal' | 'italic' | 'oblique' | 'inherit'
-  'font-variant'?: string
-  'font-weight'?: number | string
-  'glyph-orientation-horizontal'?: string
-  'glyph-orientation-vertical'?: string
-  'image-rendering'?: 'auto' | 'optimizeQuality' | 'optimizeSpeed' | 'inherit'
-  kerning?: string
-  'letter-spacing'?: number | string
-  'lighting-color'?: string
-  'marker-end'?: string
-  'marker-mid'?: string
-  'marker-start'?: string
-  mask?: string
-  opacity?: number | string | 'inherit'
-  overflow?: 'visible' | 'hidden' | 'scroll' | 'auto' | 'inherit'
-  'pointer-events'?:
+  'enable-background'?: ObservableMaybe<string>
+  fill?: ObservableMaybe<string>
+  'fill-opacity'?: ObservableMaybe<number | string | 'inherit'>
+  'fill-rule'?: ObservableMaybe<'nonzero' | 'evenodd' | 'inherit'>
+  filter?: ObservableMaybe<string>
+  'flood-color'?: ObservableMaybe<string>
+  'flood-opacity'?: ObservableMaybe<number | string | 'inherit'>
+  'font-family'?: ObservableMaybe<string>
+  'font-size'?: ObservableMaybe<string>
+  'font-size-adjust'?: ObservableMaybe<number | string>
+  'font-stretch'?: ObservableMaybe<string>
+  'font-style'?: ObservableMaybe<'normal' | 'italic' | 'oblique' | 'inherit'>
+  'font-variant'?: ObservableMaybe<string>
+  'font-weight'?: ObservableMaybe<number | string>
+  'glyph-orientation-horizontal'?: ObservableMaybe<string>
+  'glyph-orientation-vertical'?: ObservableMaybe<string>
+  'image-rendering'?: ObservableMaybe<'auto' | 'optimizeQuality' | 'optimizeSpeed' | 'inherit'>
+  kerning?: ObservableMaybe<string>
+  'letter-spacing'?: ObservableMaybe<number | string>
+  'lighting-color'?: ObservableMaybe<string>
+  'marker-end'?: ObservableMaybe<string>
+  'marker-mid'?: ObservableMaybe<string>
+  'marker-start'?: ObservableMaybe<string>
+  mask?: ObservableMaybe<string>
+  opacity?: ObservableMaybe<number | string | 'inherit'>
+  overflow?: ObservableMaybe<'visible' | 'hidden' | 'scroll' | 'auto' | 'inherit'>
+  'pointer-events'?: ObservableMaybe<
     | 'bounding-box'
     | 'visiblePainted'
     | 'visibleFill'
@@ -1119,29 +1123,33 @@ interface PresentationSVGAttributes {
     | 'all'
     | 'none'
     | 'inherit'
-  'shape-rendering'?: 'auto' | 'optimizeSpeed' | 'crispEdges' | 'geometricPrecision' | 'inherit'
-  'stop-color'?: string
-  'stop-opacity'?: number | string | 'inherit'
-  stroke?: string
-  'stroke-dasharray'?: string
-  'stroke-dashoffset'?: number | string
-  'stroke-linecap'?: 'butt' | 'round' | 'square' | 'inherit'
-  'stroke-linejoin'?: 'arcs' | 'bevel' | 'miter' | 'miter-clip' | 'round' | 'inherit'
-  'stroke-miterlimit'?: number | string | 'inherit'
-  'stroke-opacity'?: number | string | 'inherit'
-  'stroke-width'?: number | string
-  'text-anchor'?: 'start' | 'middle' | 'end' | 'inherit'
-  'text-decoration'?: 'none' | 'underline' | 'overline' | 'line-through' | 'blink' | 'inherit'
-  'text-rendering'?:
-    | 'auto'
-    | 'optimizeSpeed'
-    | 'optimizeLegibility'
-    | 'geometricPrecision'
-    | 'inherit'
-  'unicode-bidi'?: string
-  visibility?: 'visible' | 'hidden' | 'collapse' | 'inherit'
-  'word-spacing'?: number | string
-  'writing-mode'?: 'lr-tb' | 'rl-tb' | 'tb-rl' | 'lr' | 'rl' | 'tb' | 'inherit'
+  >
+  'shape-rendering'?: ObservableMaybe<
+    'auto' | 'optimizeSpeed' | 'crispEdges' | 'geometricPrecision' | 'inherit'
+  >
+  'stop-color'?: ObservableMaybe<string>
+  'stop-opacity'?: ObservableMaybe<number | string | 'inherit'>
+  stroke?: ObservableMaybe<string>
+  'stroke-dasharray'?: ObservableMaybe<string>
+  'stroke-dashoffset'?: ObservableMaybe<number | string>
+  'stroke-linecap'?: ObservableMaybe<'butt' | 'round' | 'square' | 'inherit'>
+  'stroke-linejoin'?: ObservableMaybe<
+    'arcs' | 'bevel' | 'miter' | 'miter-clip' | 'round' | 'inherit'
+  >
+  'stroke-miterlimit'?: ObservableMaybe<number | string | 'inherit'>
+  'stroke-opacity'?: ObservableMaybe<number | string | 'inherit'>
+  'stroke-width'?: ObservableMaybe<number | string>
+  'text-anchor'?: ObservableMaybe<'start' | 'middle' | 'end' | 'inherit'>
+  'text-decoration'?: ObservableMaybe<
+    'none' | 'underline' | 'overline' | 'line-through' | 'blink' | 'inherit'
+  >
+  'text-rendering'?: ObservableMaybe<
+    'auto' | 'optimizeSpeed' | 'optimizeLegibility' | 'geometricPrecision' | 'inherit'
+  >
+  'unicode-bidi'?: ObservableMaybe<string>
+  visibility?: ObservableMaybe<'visible' | 'hidden' | 'collapse' | 'inherit'>
+  'word-spacing'?: ObservableMaybe<number | string>
+  'writing-mode'?: ObservableMaybe<'lr-tb' | 'rl-tb' | 'tb-rl' | 'lr' | 'rl' | 'tb' | 'inherit'>
 }
 interface AnimationElementSVGAttributes<T>
   extends CoreSVGAttributes<T>,
@@ -1164,30 +1172,30 @@ interface ContainerElementSVGAttributes<T>
 interface FilterPrimitiveElementSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     Pick<PresentationSVGAttributes, 'color-interpolation-filters'> {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  result?: string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  result?: ObservableMaybe<string>
 }
 interface SingleInputFilterSVGAttributes {
-  in?: string
+  in?: ObservableMaybe<string>
 }
 interface DoubleInputFilterSVGAttributes {
-  in?: string
-  in2?: string
+  in?: ObservableMaybe<string>
+  in2?: ObservableMaybe<string>
 }
 interface FitToViewBoxSVGAttributes {
-  viewBox?: string
-  preserveAspectRatio?: SVGPreserveAspectRatio
+  viewBox?: ObservableMaybe<string>
+  preserveAspectRatio?: ObservableMaybe<SVGPreserveAspectRatio>
 }
 interface GradientElementSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     ExternalResourceSVGAttributes,
     StylableSVGAttributes {
-  gradientUnits?: SVGUnits
-  gradientTransform?: string
-  spreadMethod?: 'pad' | 'reflect' | 'repeat'
+  gradientUnits?: ObservableMaybe<SVGUnits>
+  gradientTransform?: ObservableMaybe<string>
+  spreadMethod?: ObservableMaybe<'pad' | 'reflect' | 'repeat'>
 }
 interface GraphicsElementSVGAttributes<T>
   extends CoreSVGAttributes<T>,
@@ -1208,7 +1216,7 @@ type LightSourceElementSVGAttributes<T> = CoreSVGAttributes<T>
 interface NewViewportSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     Pick<PresentationSVGAttributes, 'overflow' | 'clip'> {
-  viewBox?: string
+  viewBox?: ObservableMaybe<string>
 }
 interface ShapeElementSVGAttributes<T>
   extends CoreSVGAttributes<T>,
@@ -1263,7 +1271,7 @@ interface TextContentElementSVGAttributes<T>
       | 'stroke-opacity'
     > {}
 interface ZoomAndPanSVGAttributes {
-  zoomAndPan?: 'disable' | 'magnify'
+  zoomAndPan?: ObservableMaybe<'disable' | 'magnify'>
 }
 interface AnimateSVGAttributes<T>
   extends AnimationElementSVGAttributes<T>,
@@ -1277,10 +1285,10 @@ interface AnimateMotionSVGAttributes<T>
     AnimationTimingSVGAttributes,
     AnimationValueSVGAttributes,
     AnimationAdditionSVGAttributes {
-  path?: string
-  keyPoints?: string
-  rotate?: number | string | 'auto' | 'auto-reverse'
-  origin?: 'default'
+  path?: ObservableMaybe<string>
+  keyPoints?: ObservableMaybe<string>
+  rotate?: ObservableMaybe<number | string | 'auto' | 'auto-reverse'>
+  origin?: ObservableMaybe<'default'>
 }
 interface AnimateTransformSVGAttributes<T>
   extends AnimationElementSVGAttributes<T>,
@@ -1288,7 +1296,7 @@ interface AnimateTransformSVGAttributes<T>
     AnimationTimingSVGAttributes,
     AnimationValueSVGAttributes,
     AnimationAdditionSVGAttributes {
-  type?: 'translate' | 'scale' | 'rotate' | 'skewX' | 'skewY'
+  type?: ObservableMaybe<'translate' | 'scale' | 'rotate' | 'skewX' | 'skewY'>
 }
 interface CircleSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1296,9 +1304,9 @@ interface CircleSVGAttributes<T>
     ConditionalProcessingSVGAttributes,
     StylableSVGAttributes,
     TransformableSVGAttributes {
-  cx?: number | string
-  cy?: number | string
-  r?: number | string
+  cx?: ObservableMaybe<number | string>
+  cy?: ObservableMaybe<number | string>
+  r?: ObservableMaybe<number | string>
 }
 interface ClipPathSVGAttributes<T>
   extends CoreSVGAttributes<T>,
@@ -1307,7 +1315,7 @@ interface ClipPathSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'clip-path'> {
-  clipPathUnits?: SVGUnits
+  clipPathUnits?: ObservableMaybe<SVGUnits>
 }
 interface DefsSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1323,23 +1331,23 @@ interface EllipseSVGAttributes<T>
     ExternalResourceSVGAttributes,
     StylableSVGAttributes,
     TransformableSVGAttributes {
-  cx?: number | string
-  cy?: number | string
-  rx?: number | string
-  ry?: number | string
+  cx?: ObservableMaybe<number | string>
+  cy?: ObservableMaybe<number | string>
+  rx?: ObservableMaybe<number | string>
+  ry?: ObservableMaybe<number | string>
 }
 interface FeBlendSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     DoubleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  mode?: 'normal' | 'multiply' | 'screen' | 'darken' | 'lighten'
+  mode?: ObservableMaybe<'normal' | 'multiply' | 'screen' | 'darken' | 'lighten'>
 }
 interface FeColorMatrixSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  type?: 'matrix' | 'saturate' | 'hueRotate' | 'luminanceToAlpha'
-  values?: string
+  type?: ObservableMaybe<'matrix' | 'saturate' | 'hueRotate' | 'luminanceToAlpha'>
+  values?: ObservableMaybe<string>
 }
 interface FeComponentTransferSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
@@ -1349,46 +1357,46 @@ interface FeCompositeSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     DoubleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  operator?: 'over' | 'in' | 'out' | 'atop' | 'xor' | 'arithmetic'
-  k1?: number | string
-  k2?: number | string
-  k3?: number | string
-  k4?: number | string
+  operator?: ObservableMaybe<'over' | 'in' | 'out' | 'atop' | 'xor' | 'arithmetic'>
+  k1?: ObservableMaybe<number | string>
+  k2?: ObservableMaybe<number | string>
+  k3?: ObservableMaybe<number | string>
+  k4?: ObservableMaybe<number | string>
 }
 interface FeConvolveMatrixSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  order?: number | string
-  kernelMatrix?: string
-  divisor?: number | string
-  bias?: number | string
-  targetX?: number | string
-  targetY?: number | string
-  edgeMode?: 'duplicate' | 'wrap' | 'none'
-  kernelUnitLength?: number | string
-  preserveAlpha?: 'true' | 'false'
+  order?: ObservableMaybe<number | string>
+  kernelMatrix?: ObservableMaybe<string>
+  divisor?: ObservableMaybe<number | string>
+  bias?: ObservableMaybe<number | string>
+  targetX?: ObservableMaybe<number | string>
+  targetY?: ObservableMaybe<number | string>
+  edgeMode?: ObservableMaybe<'duplicate' | 'wrap' | 'none'>
+  kernelUnitLength?: ObservableMaybe<number | string>
+  preserveAlpha?: ObservableMaybe<'true' | 'false'>
 }
 interface FeDiffuseLightingSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes,
     Pick<PresentationSVGAttributes, 'color' | 'lighting-color'> {
-  surfaceScale?: number | string
-  diffuseConstant?: number | string
-  kernelUnitLength?: number | string
+  surfaceScale?: ObservableMaybe<number | string>
+  diffuseConstant?: ObservableMaybe<number | string>
+  kernelUnitLength?: ObservableMaybe<number | string>
 }
 interface FeDisplacementMapSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     DoubleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  scale?: number | string
-  xChannelSelector?: 'R' | 'G' | 'B' | 'A'
-  yChannelSelector?: 'R' | 'G' | 'B' | 'A'
+  scale?: ObservableMaybe<number | string>
+  xChannelSelector?: ObservableMaybe<'R' | 'G' | 'B' | 'A'>
+  yChannelSelector?: ObservableMaybe<'R' | 'G' | 'B' | 'A'>
 }
 interface FeDistantLightSVGAttributes<T> extends LightSourceElementSVGAttributes<T> {
-  azimuth?: number | string
-  elevation?: number | string
+  azimuth?: ObservableMaybe<number | string>
+  elevation?: ObservableMaybe<number | string>
 }
 interface FeFloodSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
@@ -1396,25 +1404,25 @@ interface FeFloodSVGAttributes<T>
     Pick<PresentationSVGAttributes, 'color' | 'flood-color' | 'flood-opacity'> {}
 interface FeFuncSVGAttributes<T> extends CoreSVGAttributes<T> {
   type?: 'identity' | 'table' | 'discrete' | 'linear' | 'gamma'
-  tableValues?: string
-  slope?: number | string
-  intercept?: number | string
-  amplitude?: number | string
-  exponent?: number | string
-  offset?: number | string
+  tableValues?: ObservableMaybe<string>
+  slope?: ObservableMaybe<number | string>
+  intercept?: ObservableMaybe<number | string>
+  amplitude?: ObservableMaybe<number | string>
+  exponent?: ObservableMaybe<number | string>
+  offset?: ObservableMaybe<number | string>
 }
 interface FeGaussianBlurSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  stdDeviation?: number | string
+  stdDeviation?: ObservableMaybe<number | string>
 }
 interface FeImageSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     ExternalResourceSVGAttributes,
     StylableSVGAttributes {
-  preserveAspectRatio?: SVGPreserveAspectRatio
-  href?: string
+  preserveAspectRatio?: ObservableMaybe<SVGPreserveAspectRatio>
+  href?: ObservableMaybe<string>
 }
 interface FeMergeSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
@@ -1426,40 +1434,40 @@ interface FeMorphologySVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  operator?: 'erode' | 'dilate'
-  radius?: number | string
+  operator?: ObservableMaybe<'erode' | 'dilate'>
+  radius?: ObservableMaybe<number | string>
 }
 interface FeOffsetSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes {
-  dx?: number | string
-  dy?: number | string
+  dx?: ObservableMaybe<number | string>
+  dy?: ObservableMaybe<number | string>
 }
 interface FePointLightSVGAttributes<T> extends LightSourceElementSVGAttributes<T> {
-  x?: number | string
-  y?: number | string
-  z?: number | string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  z?: ObservableMaybe<number | string>
 }
 interface FeSpecularLightingSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     SingleInputFilterSVGAttributes,
     StylableSVGAttributes,
     Pick<PresentationSVGAttributes, 'color' | 'lighting-color'> {
-  surfaceScale?: string
-  specularConstant?: string
-  specularExponent?: string
-  kernelUnitLength?: number | string
+  surfaceScale?: ObservableMaybe<string>
+  specularConstant?: ObservableMaybe<string>
+  specularExponent?: ObservableMaybe<string>
+  kernelUnitLength?: ObservableMaybe<number | string>
 }
 interface FeSpotLightSVGAttributes<T> extends LightSourceElementSVGAttributes<T> {
-  x?: number | string
-  y?: number | string
-  z?: number | string
-  pointsAtX?: number | string
-  pointsAtY?: number | string
-  pointsAtZ?: number | string
-  specularExponent?: number | string
-  limitingConeAngle?: number | string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  z?: ObservableMaybe<number | string>
+  pointsAtX?: ObservableMaybe<number | string>
+  pointsAtY?: ObservableMaybe<number | string>
+  pointsAtZ?: ObservableMaybe<number | string>
+  specularExponent?: ObservableMaybe<number | string>
+  limitingConeAngle?: ObservableMaybe<number | string>
 }
 interface FeTileSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
@@ -1468,23 +1476,23 @@ interface FeTileSVGAttributes<T>
 interface FeTurbulanceSVGAttributes<T>
   extends FilterPrimitiveElementSVGAttributes<T>,
     StylableSVGAttributes {
-  baseFrequency?: number | string
-  numOctaves?: number | string
-  seed?: number | string
-  stitchTiles?: 'stitch' | 'noStitch'
-  type?: 'fractalNoise' | 'turbulence'
+  baseFrequency?: ObservableMaybe<number | string>
+  numOctaves?: ObservableMaybe<number | string>
+  seed?: ObservableMaybe<number | string>
+  stitchTiles?: ObservableMaybe<'stitch' | 'noStitch'>
+  type?: ObservableMaybe<'fractalNoise' | 'turbulence'>
 }
 interface FilterSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     ExternalResourceSVGAttributes,
     StylableSVGAttributes {
-  filterUnits?: SVGUnits
-  primitiveUnits?: SVGUnits
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  filterRes?: number | string
+  filterUnits?: ObservableMaybe<SVGUnits>
+  primitiveUnits?: ObservableMaybe<SVGUnits>
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  filterRes?: ObservableMaybe<number | string>
 }
 interface ForeignObjectSVGAttributes<T>
   extends NewViewportSVGAttributes<T>,
@@ -1493,10 +1501,10 @@ interface ForeignObjectSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'display' | 'visibility'> {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
 }
 interface GSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1512,12 +1520,12 @@ interface ImageSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'color-profile' | 'image-rendering'> {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  preserveAspectRatio?: ImagePreserveAspectRatio
-  href?: string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  preserveAspectRatio?: ObservableMaybe<ImagePreserveAspectRatio>
+  href?: ObservableMaybe<string>
 }
 interface LineSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1527,16 +1535,16 @@ interface LineSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'marker-start' | 'marker-mid' | 'marker-end'> {
-  x1?: number | string
-  y1?: number | string
-  x2?: number | string
-  y2?: number | string
+  x1?: ObservableMaybe<number | string>
+  y1?: ObservableMaybe<number | string>
+  x2?: ObservableMaybe<number | string>
+  y2?: ObservableMaybe<number | string>
 }
 interface LinearGradientSVGAttributes<T> extends GradientElementSVGAttributes<T> {
-  x1?: number | string
-  x2?: number | string
-  y1?: number | string
-  y2?: number | string
+  x1?: ObservableMaybe<number | string>
+  x2?: ObservableMaybe<number | string>
+  y1?: ObservableMaybe<number | string>
+  y2?: ObservableMaybe<number | string>
 }
 interface MarkerSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1544,24 +1552,24 @@ interface MarkerSVGAttributes<T>
     StylableSVGAttributes,
     FitToViewBoxSVGAttributes,
     Pick<PresentationSVGAttributes, 'overflow' | 'clip'> {
-  markerUnits?: 'strokeWidth' | 'userSpaceOnUse'
-  refX?: number | string
-  refY?: number | string
-  markerWidth?: number | string
-  markerHeight?: number | string
-  orient?: string
+  markerUnits?: ObservableMaybe<'strokeWidth' | 'userSpaceOnUse'>
+  refX?: ObservableMaybe<number | string>
+  refY?: ObservableMaybe<number | string>
+  markerWidth?: ObservableMaybe<number | string>
+  markerHeight?: ObservableMaybe<number | string>
+  orient?: ObservableMaybe<string>
 }
 interface MaskSVGAttributes<T>
   extends Omit<ContainerElementSVGAttributes<T>, 'opacity' | 'filter'>,
     ConditionalProcessingSVGAttributes,
     ExternalResourceSVGAttributes,
     StylableSVGAttributes {
-  maskUnits?: SVGUnits
-  maskContentUnits?: SVGUnits
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
+  maskUnits?: ObservableMaybe<SVGUnits>
+  maskContentUnits?: ObservableMaybe<SVGUnits>
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
 }
 type MetadataSVGAttributes<T> = CoreSVGAttributes<T>
 interface PathSVGAttributes<T>
@@ -1572,8 +1580,8 @@ interface PathSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'marker-start' | 'marker-mid' | 'marker-end'> {
-  d?: string
-  pathLength?: number | string
+  d?: ObservableMaybe<string>
+  pathLength?: ObservableMaybe<number | string>
 }
 interface PatternSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1582,13 +1590,13 @@ interface PatternSVGAttributes<T>
     StylableSVGAttributes,
     FitToViewBoxSVGAttributes,
     Pick<PresentationSVGAttributes, 'overflow' | 'clip'> {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  patternUnits?: SVGUnits
-  patternContentUnits?: SVGUnits
-  patternTransform?: string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  patternUnits?: ObservableMaybe<SVGUnits>
+  patternContentUnits?: ObservableMaybe<SVGUnits>
+  patternTransform?: ObservableMaybe<string>
 }
 interface PolygonSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1598,7 +1606,7 @@ interface PolygonSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'marker-start' | 'marker-mid' | 'marker-end'> {
-  points?: string
+  points?: ObservableMaybe<string>
 }
 interface PolylineSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1608,14 +1616,14 @@ interface PolylineSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'marker-start' | 'marker-mid' | 'marker-end'> {
-  points?: string
+  points?: ObservableMaybe<string>
 }
 interface RadialGradientSVGAttributes<T> extends GradientElementSVGAttributes<T> {
-  cx?: number | string
-  cy?: number | string
-  r?: number | string
-  fx?: number | string
-  fy?: number | string
+  cx?: ObservableMaybe<number | string>
+  cy?: ObservableMaybe<number | string>
+  r?: ObservableMaybe<number | string>
+  fx?: ObservableMaybe<number | string>
+  fy?: ObservableMaybe<number | string>
 }
 interface RectSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1624,18 +1632,18 @@ interface RectSVGAttributes<T>
     ExternalResourceSVGAttributes,
     StylableSVGAttributes,
     TransformableSVGAttributes {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  rx?: number | string
-  ry?: number | string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  rx?: ObservableMaybe<number | string>
+  ry?: ObservableMaybe<number | string>
 }
 interface StopSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     StylableSVGAttributes,
     Pick<PresentationSVGAttributes, 'color' | 'stop-color' | 'stop-opacity'> {
-  offset?: number | string
+  offset?: ObservableMaybe<number | string>
 }
 interface SvgSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1646,15 +1654,15 @@ interface SvgSVGAttributes<T>
     FitToViewBoxSVGAttributes,
     ZoomAndPanSVGAttributes,
     PresentationSVGAttributes {
-  version?: string
-  baseProfile?: string
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  contentScriptType?: string
-  contentStyleType?: string
-  xmlns?: string
+  version?: ObservableMaybe<string>
+  baseProfile?: ObservableMaybe<string>
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  contentScriptType?: ObservableMaybe<string>
+  contentStyleType?: ObservableMaybe<string>
+  xmlns?: ObservableMaybe<string>
 }
 interface SwitchSVGAttributes<T>
   extends ContainerElementSVGAttributes<T>,
@@ -1677,13 +1685,13 @@ interface TextSVGAttributes<T>
     StylableSVGAttributes,
     TransformableSVGAttributes,
     Pick<PresentationSVGAttributes, 'writing-mode' | 'text-rendering'> {
-  x?: number | string
-  y?: number | string
-  dx?: number | string
-  dy?: number | string
-  rotate?: number | string
-  textLength?: number | string
-  lengthAdjust?: 'spacing' | 'spacingAndGlyphs'
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  dx?: ObservableMaybe<number | string>
+  dy?: ObservableMaybe<number | string>
+  rotate?: ObservableMaybe<number | string>
+  textLength?: ObservableMaybe<number | string>
+  lengthAdjust?: ObservableMaybe<'spacing' | 'spacingAndGlyphs'>
 }
 interface TextPathSVGAttributes<T>
   extends TextContentElementSVGAttributes<T>,
@@ -1694,10 +1702,10 @@ interface TextPathSVGAttributes<T>
       PresentationSVGAttributes,
       'alignment-baseline' | 'baseline-shift' | 'display' | 'visibility'
     > {
-  startOffset?: number | string
-  method?: 'align' | 'stretch'
-  spacing?: 'auto' | 'exact'
-  href?: string
+  startOffset?: ObservableMaybe<number | string>
+  method?: ObservableMaybe<'align' | 'stretch'>
+  spacing?: ObservableMaybe<'auto' | 'exact'>
+  href?: ObservableMaybe<string>
 }
 interface TSpanSVGAttributes<T>
   extends TextContentElementSVGAttributes<T>,
@@ -1708,13 +1716,13 @@ interface TSpanSVGAttributes<T>
       PresentationSVGAttributes,
       'alignment-baseline' | 'baseline-shift' | 'display' | 'visibility'
     > {
-  x?: number | string
-  y?: number | string
-  dx?: number | string
-  dy?: number | string
-  rotate?: number | string
-  textLength?: number | string
-  lengthAdjust?: 'spacing' | 'spacingAndGlyphs'
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  dx?: ObservableMaybe<number | string>
+  dy?: ObservableMaybe<number | string>
+  rotate?: ObservableMaybe<number | string>
+  textLength?: ObservableMaybe<number | string>
+  lengthAdjust?: ObservableMaybe<'spacing' | 'spacingAndGlyphs'>
 }
 interface UseSVGAttributes<T>
   extends GraphicsElementSVGAttributes<T>,
@@ -1722,18 +1730,18 @@ interface UseSVGAttributes<T>
     ExternalResourceSVGAttributes,
     StylableSVGAttributes,
     TransformableSVGAttributes {
-  x?: number | string
-  y?: number | string
-  width?: number | string
-  height?: number | string
-  href?: string
+  x?: ObservableMaybe<number | string>
+  y?: ObservableMaybe<number | string>
+  width?: ObservableMaybe<number | string>
+  height?: ObservableMaybe<number | string>
+  href?: ObservableMaybe<string>
 }
 interface ViewSVGAttributes<T>
   extends CoreSVGAttributes<T>,
     ExternalResourceSVGAttributes,
     FitToViewBoxSVGAttributes,
     ZoomAndPanSVGAttributes {
-  viewTarget?: string
+  viewTarget?: ObservableMaybe<string>
 }
 
 // #endregion
