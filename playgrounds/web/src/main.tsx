@@ -10,7 +10,7 @@ export const RxactApp = () => {
       <h1>Rxjsx App</h1>
       {isTrue && 'should show'}
       {isFalse && 'should not show'}
-      <Counter step={2} />
+      <Counter initialStep={2} />
     </>
   )
 }
