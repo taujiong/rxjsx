@@ -1,4 +1,4 @@
-import type { JsxChild, JsxElement, JsxIntrinsicElements, ObservableMaybe } from '@rxjsx/core'
+import type { JsxElement, JsxIntrinsicElements, ObservableMaybe } from '@rxjsx/core'
 import type { Properties } from 'csstype'
 
 export type EventHandler<TTarget, TEvent extends Event = Event> = (

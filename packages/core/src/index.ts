@@ -1,3 +1,4 @@
+export * from './components/index.js'
 export * from './hooks/index.js'
 export * from './jsx.js'
 export * from './render/index.js'

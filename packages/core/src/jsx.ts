@@ -74,3 +74,20 @@ export const createRenderNode = (
     childNodes
   )
 }
+
+/**
+ * only to satisfy typescript, so that code in components can use jsx
+ */
+declare namespace JSX {
+  type Element = JsxElement
+  interface ElementAttributesProperty {
+    props: {}
+  }
+  interface ElementChildrenAttribute {
+    children: {}
+  }
+  interface IntrinsicAttributes {}
+  type ElementClass = never
+  type IntrinsicClassAttributes<T> = never
+  interface IntrinsicElements extends JsxIntrinsicElements {}
+}

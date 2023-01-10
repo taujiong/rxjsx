@@ -1,15 +1,19 @@
+import { Show } from '@rxjsx/core'
 import { render } from '@rxjsx/dom'
+import { fromEvent, map, scan, startWith } from 'rxjs'
 import { Counter } from './Counter.js'
 
 export const RxactApp = () => {
-  const isFalse = false
-  const isTrue = true
+  const shouldShow$ = fromEvent(document, 'click').pipe(
+    scan((count) => count + 1, 0),
+    map((count) => count % 2 === 0),
+    startWith(true)
+  )
 
   return (
     <>
       <h1>Rxjsx App</h1>
-      {isTrue && 'should show'}
-      {isFalse && 'should not show'}
+      <Show when={shouldShow$}>controlled by rxjs</Show>
       <Counter initialStep={2} />
     </>
   )
