@@ -5,9 +5,11 @@ export const isFunction = (val: unknown): val is Function => {
   return typeof val === 'function'
 }
 
-export type FC<TProps extends {} | undefined = {}> = (
-  props: TProps & { children?: JsxElement | JsxElement[] }
-) => JsxElement
+export interface IHasChildren {
+  children?: JsxElement | JsxElement[]
+}
+
+export type FC<TProps extends {} | undefined = {}> = (props: TProps & IHasChildren) => JsxElement
 
 export type ObservableMaybe<TValue> = TValue | Observable<TValue>
 

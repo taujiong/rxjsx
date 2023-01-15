@@ -49,26 +49,10 @@ export abstract class RenderNode<TContext = any> {
 
   public deactivate(): void {
     this.preDetach()
-    /**
-     * without a settimeout, the execution order becomes:
-     *    1. parentNode pre detach
-     *    2. parentNode detach and post detach
-     *    3. each of childNode pre detach, detach and post detach
-     * with a settimeout, the execution order becomes:
-     *    1. parentNode pre detach
-     *    2. each of childNode pre detach
-     *    3. parentNode detach and post detach
-     *    4. each of childNode detach and post detach
-     * in the context of web, if the parentNode remove first, fewer repaint occurs
-     */
-    setTimeout(() => {
-      this.detach()
-      this.postDetach()
-      setTimeout(() => {
-        this._shape = null
-      }, 0)
-    }, 0)
+    this.detach()
+    this.postDetach()
     this.childNodes?.forEach((childNode) => childNode.deactivate())
+    this._shape = null
   }
 
   protected abstract createShape(): Shape

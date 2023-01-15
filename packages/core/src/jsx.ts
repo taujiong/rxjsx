@@ -1,4 +1,5 @@
 import { isObservable } from 'rxjs'
+import { Portal } from './index.js'
 import {
   ElementRenderNode,
   FragmentRenderNode,
@@ -50,6 +51,7 @@ export const createRenderNode = (
   props: any
 ): RenderNode => {
   if (typeof type === 'function') {
+    if (type === Portal) return type(props)
     return new FunctionRenderNode({
       fn: type as () => RenderNode,
       props,

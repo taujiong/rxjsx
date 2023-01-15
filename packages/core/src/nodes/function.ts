@@ -21,7 +21,7 @@ export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderN
     return this._internalNode?.asAnchorShape ?? this.prevSiblingShape
   }
 
-  private internalActivate(props: TProps): void {
+  protected internalActivate(props: TProps): void {
     const jsxElement = this.ctx.fn(props)
     this._internalNode = convertToRenderNode(jsxElement) ?? null
     if (!this._internalNode) return
@@ -30,7 +30,7 @@ export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderN
     this._internalNode.activate()
   }
 
-  private internalDeactivate(): void {
+  protected internalDeactivate(): void {
     this._internalNode?.deactivate()
     this._internalNode = null
   }
