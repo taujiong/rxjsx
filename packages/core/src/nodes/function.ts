@@ -5,12 +5,14 @@ import type { RenderNode, Shape } from '../render/index.js'
 import { ContainerRenderNode } from '../render/index.js'
 import type { FC } from '../utils.js'
 
-interface FunctionRenderContext {
-  fn: FC
-  props: {}
+interface FunctionRenderContext<TProps extends {}> {
+  fn: FC<TProps>
+  props: TProps
 }
 
-export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContext> {
+export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderNode<
+  FunctionRenderContext<TProps>
+> {
   private _internalNode: RenderNode | null = null
 
   public override get asAnchorShape(): Shape | null {
@@ -19,7 +21,7 @@ export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContex
     return this._internalNode?.asAnchorShape ?? this.prevSiblingShape
   }
 
-  private internalActivate(props: {}): void {
+  private internalActivate(props: TProps): void {
     const jsxElement = this.ctx.fn(props)
     this._internalNode = convertToRenderNode(jsxElement) ?? null
     if (!this._internalNode) return
