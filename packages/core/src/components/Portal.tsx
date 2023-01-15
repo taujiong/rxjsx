@@ -1,7 +1,6 @@
 import { FunctionRenderNode } from '../nodes/index.js'
 import type { ElementShape } from '../render/index.js'
 import type { FC } from '../utils.js'
-import { markAsReactive } from '../utils.js'
 
 interface PortalProps {
   parentShape: ElementShape
@@ -13,11 +12,9 @@ class PortalRenderNode extends FunctionRenderNode<PortalProps> {
   }
 }
 
-const _Portal: FC<PortalProps> = (props) => {
+export const Portal: FC<PortalProps> = (props) => {
   return new PortalRenderNode({
     fn: (props) => <>{props.children}</>,
     props,
   })
 }
-
-export const Portal = markAsReactive(_Portal)
