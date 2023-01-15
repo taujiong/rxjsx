@@ -64,6 +64,9 @@ export abstract class RenderNode<TContext = any> {
     setTimeout(() => {
       this.detach()
       this.postDetach()
+      setTimeout(() => {
+        this._shape = null
+      }, 0)
     }, 0)
     this.childNodes?.forEach((childNode) => childNode.deactivate())
   }
