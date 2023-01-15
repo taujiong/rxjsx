@@ -1,6 +1,6 @@
 import { isObservable } from 'rxjs'
 import { ConcreteRenderNode, Renderer } from '../render/index.js'
-import type { ElementShape, Shape } from '../render/shape.js'
+import type { Shape } from '../render/shape.js'
 
 interface ElementRenderContext {
   type: string
@@ -8,10 +8,6 @@ interface ElementRenderContext {
 }
 
 export class ElementRenderNode extends ConcreteRenderNode<ElementRenderContext> {
-  public override get asParentShape(): ElementShape {
-    return this.shape
-  }
-
   protected override createShape(): Shape {
     const renderer = Renderer.current
 

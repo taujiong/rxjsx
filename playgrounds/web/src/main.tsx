@@ -1,5 +1,5 @@
 import { Show } from '@rxjsx/core'
-import { render } from '@rxjsx/dom'
+import { createRenderRoot } from '@rxjsx/dom'
 import { fromEvent, map, scan, startWith } from 'rxjs'
 import { Counter } from './Counter.js'
 
@@ -19,5 +19,6 @@ export const RxactApp = () => {
   )
 }
 
-const root = document.getElementById('root') as HTMLElement
-render(root)(<RxactApp />)
+const rootEle = document.getElementById('root') as HTMLElement
+const root = createRenderRoot(rootEle)
+root.render(<RxactApp />)

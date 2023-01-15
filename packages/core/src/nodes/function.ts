@@ -13,9 +13,10 @@ interface FunctionRenderContext {
 export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContext> {
   private _internalNode: RenderNode | null = null
 
-  public get asAnchorShape(): Shape | null {
-    if (!this._internalNode) throw new Error('node has not been activated yet')
-    return this._internalNode.asAnchorShape
+  public override get asAnchorShape(): Shape | null {
+    if (!this.isConnected) return this.prevSiblingShape
+
+    return this._internalNode?.asAnchorShape ?? this.prevSiblingShape
   }
 
   private internalActivate(props: {}): void {
@@ -33,30 +34,35 @@ export class FunctionRenderNode extends ContainerRenderNode<FunctionRenderContex
   }
 
   public override activate(): void {
-    const observableProps = Object.entries(this.ctx.props).filter((entry) => isObservable(entry[1]))
+    this.preAttach()
 
+    const observableProps = Object.entries(this.ctx.props).filter((entry) => isObservable(entry[1]))
     if (observableProps.length === 0) {
       this.internalActivate(this.ctx.props)
-      return
+    } else {
+      const newProps$ = combineLatest(
+        Object.fromEntries(observableProps) as Record<string, Observable<any>>
+      )
+      const subscription = newProps$.subscribe((newProps) => {
+        const fullProps = {
+          ...this.ctx.props,
+          ...newProps,
+        }
+
+        this.internalDeactivate()
+        this.internalActivate(fullProps)
+      })
+      this.disposers.push(() => subscription.unsubscribe())
     }
 
-    const newProps$ = combineLatest(
-      Object.fromEntries(observableProps) as Record<string, Observable<any>>
-    )
-    const subscription = newProps$.subscribe((newProps) => {
-      const fullProps = {
-        ...this.ctx.props,
-        ...newProps,
-      }
-
-      this.internalDeactivate()
-      this.internalActivate(fullProps)
-    })
-    this.disposers.push(() => subscription.unsubscribe())
+    this.attach()
+    this.postAttach()
   }
 
   public override deactivate(): void {
+    this.preDetach()
     this.internalDeactivate()
-    super.deactivate()
+    this.detach()
+    this.postAttach()
   }
 }

@@ -2,7 +2,8 @@ import type { DisposeFn } from '../hooks/dispose.js'
 import type { JsxElement, JsxText } from '../jsx.js'
 import { convertToRenderNode } from '../jsx.js'
 import { TextRenderNode } from '../nodes/index.js'
-import type { ElementShape, Shape, TextShape } from './shape.js'
+import type { RenderNode } from './node.js'
+import type { ContainerShape, ElementShape, Shape, TextShape } from './shape.js'
 
 export abstract class Renderer {
   public static current: Renderer
@@ -11,6 +12,7 @@ export abstract class Renderer {
 
   // element ops
   public abstract createElement(elementName: string): ElementShape
+  public abstract createContainerElement(): ContainerShape
   public abstract setAttribute(shape: ElementShape, key: string, value: any): DisposeFn | undefined
   public abstract removeAttribute(shape: ElementShape, key: string): void
 
@@ -28,20 +30,31 @@ export abstract class Renderer {
   public abstract remove(parentShape: ElementShape | null, shape: Shape): void
 }
 
-export const createRenderFn = (
+export interface RenderRoot {
+  render: (element: JsxElement) => void
+  destroy: () => void
+}
+
+export const createCoreRenderRoot = (
   root: ElementShape,
   RendererImplCls: new (root: ElementShape) => Renderer
-): ((element: JsxElement) => void) => {
+): RenderRoot => {
   Renderer.current = new RendererImplCls(root)
+  let renderNode: RenderNode | null = null
 
-  return (element) => {
-    const renderNode =
-      convertToRenderNode(element) ??
-      new TextRenderNode({
-        content: 'Attention: an element with no concrete shape was passed to the root',
-      })
+  return {
+    render(element) {
+      renderNode =
+        convertToRenderNode(element) ??
+        new TextRenderNode({
+          content: 'Attention: an element with no concrete shape was passed to the root',
+        })
 
-    renderNode.markAsRoot()
-    renderNode.activate()
+      renderNode.activate()
+    },
+    destroy() {
+      renderNode?.deactivate()
+      renderNode = null
+    },
   }
 }

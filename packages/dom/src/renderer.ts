@@ -1,10 +1,18 @@
-import type { DisposeFn, ElementShape, JsxText, Shape, TextShape } from '@rxjsx/core'
-import { createRenderFn, isFunction, Renderer } from '@rxjsx/core'
+import type {
+  ContainerShape,
+  DisposeFn,
+  ElementShape,
+  JsxText,
+  Shape,
+  TextShape,
+} from '@rxjsx/core'
+import { createCoreRenderRoot, isFunction, Renderer } from '@rxjsx/core'
 import { isEvent, isSvg } from './utils.js'
 
 declare module '@rxjsx/core' {
   interface ElementShape extends Element {}
   interface TextShape extends Text {}
+  interface ContainerShape extends DocumentFragment {}
 }
 
 class DomRenderer extends Renderer {
@@ -12,6 +20,9 @@ class DomRenderer extends Renderer {
     return isSvg(elementName)
       ? document.createElementNS('http://www.w3.org/2000/svg', elementName)
       : document.createElement(elementName)
+  }
+  public createContainerElement(): ContainerShape {
+    return document.createDocumentFragment()
   }
   public setAttribute(shape: ElementShape, key: string, value: any): DisposeFn | undefined {
     if (key === 'style') {
@@ -57,24 +68,24 @@ class DomRenderer extends Renderer {
     anchorShape: Shape | null,
     shape: Shape
   ): void {
-    const shouldAppend = !parentShape || !anchorShape
     const finalParentShape = parentShape ?? this.rootShape
 
-    if (shouldAppend) {
+    if (!anchorShape) {
       finalParentShape.append(shape)
       return
     }
 
     const nextNode = anchorShape ? anchorShape.nextSibling : finalParentShape.firstChild
     if (nextNode) {
-      finalParentShape.insertBefore(nextNode, shape)
+      finalParentShape.insertBefore(shape, nextNode)
     } else {
       finalParentShape.appendChild(shape)
     }
   }
   public remove(_: ElementShape | null, shape: Shape): void {
+    if (shape instanceof DocumentFragment) return
     shape.remove()
   }
 }
 
-export const render = (root: ElementShape) => createRenderFn(root, DomRenderer)
+export const createRenderRoot = (root: ElementShape) => createCoreRenderRoot(root, DomRenderer)

@@ -57,10 +57,15 @@ export const createRenderNode = (
   }
 
   const { children, ...restProps } = props
-  const wrappedChildren = Array.isArray(children) ? children : [children]
-  const childNodes = wrappedChildren
-    .map(convertToRenderNode)
-    .filter((node) => node !== undefined) as RenderNode[]
+  let childNodes
+  if (children === undefined) {
+    childNodes = undefined
+  } else {
+    const wrappedChildren = Array.isArray(children) ? children : [children]
+    childNodes = wrappedChildren
+      .map(convertToRenderNode)
+      .filter((node) => node !== undefined) as RenderNode[]
+  }
 
   if (type === Fragment) {
     return new FragmentRenderNode(null, childNodes)

@@ -12,34 +12,26 @@ export abstract class RenderNode<TContext = any> {
     })
   }
 
-  private _isRoot = false
-  public markAsRoot(): void {
-    this._isRoot = true
+  protected isConnected = false
+  private _shape: Shape | null = null
+  protected get shape(): Shape {
+    if (this._shape) return this._shape
+    throw new Error('shape has not been created yet')
   }
 
-  private _parentNode: RenderNode | null = null
-  public get parentNode(): RenderNode | null {
-    if (this._parentNode) return this._parentNode
-    if (this._isRoot) return null
-    throw new Error('parent node has not been set yet')
-  }
-  public set parentNode(node: RenderNode | null) {
-    if (node === null) throw new Error('type null can not be set as a parent node')
-    this._parentNode = node
-  }
-
-  private prevSiblingNode: RenderNode | null = null
-
-  public abstract get asParentShape(): ElementShape | null
-  public get parentShape(): ElementShape | null {
-    if (this._isRoot) return null
-    return this.parentNode!.asParentShape
+  public abstract get asParentShape(): Shape | null
+  public parentNode: RenderNode | null = null
+  protected get parentShape(): ElementShape | null {
+    return this.parentNode?.asParentShape ?? null
   }
 
   public abstract get asAnchorShape(): Shape | null
-  public get prevSiblingShape(): Shape | null {
-    if (!this.prevSiblingNode) return null
-    return this.prevSiblingNode.asAnchorShape
+  protected prevSiblingNode: RenderNode | null = null
+  protected get prevSiblingShape(): Shape | null {
+    if (this.prevSiblingNode) return this.prevSiblingNode.asAnchorShape
+    if (this.parentNode instanceof ContainerRenderNode && this.parentNode.isConnected)
+      return this.parentNode.prevSiblingShape
+    return null
   }
 
   private _disposers?: DisposeFn[]
@@ -49,54 +41,73 @@ export abstract class RenderNode<TContext = any> {
   }
 
   public activate(): void {
+    this.preAttach()
     this.childNodes?.forEach((childNode) => childNode.activate())
+    this.attach()
+    this.postAttach()
   }
 
   public deactivate(): void {
+    this.preDetach()
+    /**
+     * without a settimeout, the execution order becomes:
+     *    1. parentNode pre detach
+     *    2. parentNode detach and post detach
+     *    3. each of childNode pre detach, detach and post detach
+     * with a settimeout, the execution order becomes:
+     *    1. parentNode pre detach
+     *    2. each of childNode pre detach
+     *    3. parentNode detach and post detach
+     *    4. each of childNode detach and post detach
+     * in the context of web, if the parentNode remove first, fewer repaint occurs
+     */
+    setTimeout(() => {
+      this.detach()
+      this.postDetach()
+    }, 0)
     this.childNodes?.forEach((childNode) => childNode.deactivate())
+  }
+
+  protected abstract createShape(): Shape
+  protected preAttach() {
+    this._shape = this.createShape()
+  }
+  protected attach() {
+    Renderer.current.insertAfter(this.parentShape, this.prevSiblingShape, this.shape!)
+    this.isConnected = true
+  }
+  protected postAttach() {}
+
+  protected preDetach() {
     this._disposers?.forEach((dispose) => dispose())
   }
+  protected detach() {
+    Renderer.current.remove(this.parentShape, this._shape!)
+    this.isConnected = false
+  }
+  protected postDetach() {}
 }
 
 export abstract class ConcreteRenderNode<TContext = any> extends RenderNode<TContext> {
-  private _shape: Shape | null = null
-  protected get shape(): Shape {
-    if (this._shape) return this._shape
-    throw new Error('shape has not been created yet')
-  }
-
-  public override get asAnchorShape() {
+  public override get asParentShape(): Shape | null {
     return this.shape
   }
 
-  public abstract override get asParentShape(): ElementShape
-  protected abstract createShape(): Shape
-
-  protected attach(): void {
-    const renderer = Renderer.current
-    renderer.insertAfter(this.parentShape, this.prevSiblingShape, this.shape!)
-  }
-
-  protected detach(): void {
-    const renderer = Renderer.current
-    renderer.remove(this.parentShape, this._shape!)
-  }
-
-  public override activate(): void {
-    this._shape = this.createShape()
-    super.activate()
-    this.attach()
-  }
-
-  public override deactivate(): void {
-    // TODO: think about the order
-    super.deactivate()
-    this.detach()
+  public override get asAnchorShape(): Shape | null {
+    if (this.isConnected) return this.shape
+    return this.prevSiblingShape
   }
 }
 
 export abstract class ContainerRenderNode<TContext = any> extends RenderNode<TContext> {
-  public override get asParentShape() {
+  protected override createShape(): Shape {
+    return Renderer.current.createContainerElement()
+  }
+
+  // TODO only works for web since the container disappears when connected
+  public override get asParentShape(): Shape | null {
+    if (!this.isConnected) return this.shape
+
     return this.parentShape
   }
 }
