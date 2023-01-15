@@ -1,5 +1,4 @@
 import { isObservable } from 'rxjs'
-import { Portal } from './index.js'
 import {
   ElementRenderNode,
   FragmentRenderNode,
@@ -7,7 +6,7 @@ import {
   TextRenderNode,
 } from './nodes/index.js'
 import { RenderNode } from './render/index.js'
-import type { ObservableMaybe } from './utils.js'
+import type { FC, ObservableMaybe } from './utils.js'
 
 export const Fragment = Symbol.for('JSX.FRAGMENT')
 export type FragmentType = typeof Fragment
@@ -46,12 +45,19 @@ export const convertToRenderNode = (child: JsxElement): RenderNode | undefined =
   throw new Error(`invalid child type: ${typeof child}`)
 }
 
+const customComponentSet = new Set<FC>()
+
+export const registerCustomComponet = (...components: FC<any>[]) => {
+  components.forEach((component) => customComponentSet.add(component))
+}
+
 export const createRenderNode = (
   type: string | FragmentType | Function,
   props: any
 ): RenderNode => {
   if (typeof type === 'function') {
-    if (type === Portal) return type(props)
+    if (customComponentSet.has(type as FC)) return type(props)
+
     return new FunctionRenderNode({
       fn: type as () => RenderNode,
       props,

@@ -1,4 +1,5 @@
 import { isObservable } from 'rxjs'
+import { registerCustomComponet } from '../jsx.js'
 import { FunctionRenderNode } from '../nodes/index.js'
 import type { ElementShape, Shape } from '../render/index.js'
 import type { FC, ObservableMaybe } from '../utils.js'
@@ -49,3 +50,5 @@ export const Portal: FC<PortalProps> = (props) => {
     props,
   })
 }
+
+registerCustomComponet(Portal)
