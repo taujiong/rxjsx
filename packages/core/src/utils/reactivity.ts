@@ -1,15 +1,5 @@
 import type { Observable, SubjectLike } from 'rxjs'
-import type { JsxElement } from './jsx.js'
-
-export const isFunction = (val: unknown): val is Function => {
-  return typeof val === 'function'
-}
-
-export interface IHasChildren {
-  children?: JsxElement | JsxElement[]
-}
-
-export type FC<TProps extends {} | undefined = {}> = (props: TProps & IHasChildren) => JsxElement
+import type { FC } from '../render/jsx.js'
 
 export type ObservableMaybe<TValue> = TValue | Observable<TValue>
 

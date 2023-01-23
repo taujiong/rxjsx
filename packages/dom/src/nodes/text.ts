@@ -1,18 +1,13 @@
+import type { TextRenderContext, TextShape } from '@rxjsx/core'
+import { Renderer } from '@rxjsx/core'
 import { isObservable } from 'rxjs'
-import type { JsxText } from '../jsx.js'
-import type { Shape } from '../render/index.js'
-import { ConcreteRenderNode, Renderer } from '../render/index.js'
-import type { ObservableMaybe } from '../utils.js'
+import { ConcreteRenderNode } from './base.js'
 
-interface TextRenderContext {
-  content: ObservableMaybe<JsxText>
-}
-
-export class TextRenderNode extends ConcreteRenderNode<TextRenderContext> {
-  protected override createShape(): Shape {
+export class DomTextRenderNode extends ConcreteRenderNode<TextRenderContext, TextShape> {
+  protected override createShape(): TextShape {
     const renderer = Renderer.current
     const content = this.ctx.content
-    let shape: Shape
+    let shape: TextShape
 
     if (isObservable(content)) {
       shape = renderer.createText('')

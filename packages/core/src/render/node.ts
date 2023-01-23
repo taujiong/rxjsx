@@ -1,9 +1,18 @@
-import type { DisposeFn } from '../hooks/index.js'
-import { Renderer } from './renderer.js'
-import type { ElementShape, Shape } from './shape.js'
+import type { DisposeFn } from '../hooks/dispose.js'
+import type { Shape } from './shape.js'
 
-export abstract class RenderNode<TContext = any> {
-  public constructor(protected ctx: TContext, protected childNodes?: RenderNode[]) {
+export abstract class RenderNode<TContext = any, TShape extends Shape = Shape> {
+  /**
+   * fundmental object to decide:
+   * 1. how to create a shape
+   * 2. when to attach the shape
+   * 3. where to attach the shape
+   * 4. when to detach the shape
+   * 5. how to detach the shape
+   * @param ctx extra information that used to create a shape
+   * @param childNodes child nodes in the node tree
+   */
+  public constructor(protected ctx: TContext, public childNodes?: RenderNode[]) {
     let prevSiblingNode: RenderNode | null = null
     this.childNodes?.forEach((childNode) => {
       childNode.parentNode = this
@@ -12,89 +21,115 @@ export abstract class RenderNode<TContext = any> {
     })
   }
 
-  protected isConnected = false
-  private _shape: Shape | null = null
-  protected get shape(): Shape {
+  /**
+   * whether the shape is connected to the shape tree
+   */
+  public abstract get isConnected(): boolean
+  private _shape: TShape | null = null
+  /**
+   * the ui element that can be seen or interacted in the render context
+   *
+   * in the context of web, a shape is a [Node](https://developer.mozilla.org/en-US/docs/Web/API/Node)
+   */
+  public get shape(): TShape {
     if (this._shape) return this._shape
     throw new Error('shape has not been created yet')
   }
 
+  /**
+   * create shape
+   */
+  protected abstract createShape(): TShape
+
+  /**
+   * ensure the shape is created
+   * @returns the shape is created in this invocation
+   */
+  protected ensureShapeCreated(): boolean {
+    if (this._shape) return false
+
+    this._shape = this.createShape()
+    return true
+  }
+
+  /**
+   * the shape to be attached to when child shape wants to connect to the shape tree
+   */
   public abstract get asParentShape(): Shape | null
+  /**
+   * the parent node in the node tree
+   */
   public parentNode: RenderNode | null = null
-  protected get parentShape(): ElementShape | null {
+  /**
+   * the shape to attach to when this.{@link shape} wants to connect to the shape tree
+   */
+  public get parentShape(): Shape | null {
     return this.parentNode?.asParentShape ?? null
   }
 
+  /**
+   * the shape that will be used as an anchor,
+   * to get the accurate position when  wants to connect to the shape tree
+   */
   public abstract get asAnchorShape(): Shape | null
-  protected prevSiblingNode: RenderNode | null = null
-  protected get prevSiblingShape(): Shape | null {
-    if (this.prevSiblingNode) return this.prevSiblingNode.asAnchorShape
-    if (this.parentNode instanceof ContainerRenderNode && this.parentNode.isConnected)
-      return this.parentNode.prevSiblingShape
-    return null
+  /**
+   * the previous sibling node in the node tree
+   */
+  public prevSiblingNode: RenderNode | null = null
+  /**
+   * the shape that will be used as an anchor,
+   * to get the accurate position when child shape wants to connect to the shape tree
+   */
+  public get prevSiblingShape(): Shape | null {
+    return this.prevSiblingNode?.asAnchorShape ?? null
   }
 
   private _disposers?: DisposeFn[]
-  protected get disposers() {
+  /**
+   * functions that will be executed when this node deactivates,
+   * usually used to remove event listeners or clear side effects
+   */
+  protected get disposers(): DisposeFn[] {
     if (this._disposers === undefined) this._disposers = []
     return this._disposers
   }
-
-  public activate(): void {
-    this.preAttach()
-    this.childNodes?.forEach((childNode) => childNode.activate())
-    this.attach()
-    this.postAttach()
-  }
-
-  public deactivate(): void {
-    this.preDetach()
-    this.detach()
-    this.postDetach()
-    this.childNodes?.forEach((childNode) => childNode.deactivate())
-    this._shape = null
-  }
-
-  protected abstract createShape(): Shape
-  protected preAttach() {
-    this._shape = this.createShape()
-  }
-  protected attach() {
-    Renderer.current.insertAfter(this.parentShape, this.prevSiblingShape, this.shape!)
-    this.isConnected = true
-  }
-  protected postAttach() {}
-
-  protected preDetach() {
+  protected dispose(): void {
     this._disposers?.forEach((dispose) => dispose())
   }
-  protected detach() {
-    Renderer.current.remove(this.parentShape, this._shape!)
-    this.isConnected = false
-  }
-  protected postDetach() {}
-}
 
-export abstract class ConcreteRenderNode<TContext = any> extends RenderNode<TContext> {
-  public override get asParentShape(): Shape | null {
-    return this.shape
+  /**
+   * connect the shape to the shape tree
+   */
+  public activate(): void {
+    this.beforeChildrenActivate()
+    this.childNodes?.forEach((childNode) => childNode.activate())
+    this.afterChildrenActivate()
   }
 
-  public override get asAnchorShape(): Shape | null {
-    if (this.isConnected) return this.shape
-    return this.prevSiblingShape
-  }
-}
+  /**
+   * before child nodes activate
+   */
+  protected beforeChildrenActivate(): void {}
+  /**
+   * after child nodes activate
+   */
+  protected afterChildrenActivate(): void {}
 
-export abstract class ContainerRenderNode<TContext = any> extends RenderNode<TContext> {
-  protected override createShape(): Shape {
-    return Renderer.current.createContainerElement()
+  /**
+   * disconnect the shape from the shape tree
+   */
+  public deactivate(): void {
+    this.beforeChildrenDeactivate()
+    this.childNodes?.forEach((childNode) => childNode.deactivate())
+    this.afterChildrenDeactivate()
   }
 
-  // TODO only works for web since the container disappears when connected
-  public override get asParentShape(): Shape | null {
-    if (!this.isConnected) return this.shape
-
-    return this.parentShape
-  }
+  /**
+   * before child nodes deactivate
+   */
+  protected beforeChildrenDeactivate(): void {}
+  /**
+   * after child nodes deactivate
+   */
+  protected afterChildrenDeactivate(): void {}
 }

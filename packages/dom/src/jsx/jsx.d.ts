@@ -8,6 +8,12 @@ export type EventHandler<TTarget, TEvent extends Event = Event> = (
   }
 ) => void
 
+declare module '@rxjsx/core' {
+  interface ElementShape extends Element {}
+  interface TextShape extends Text {}
+  interface FragmentShape extends DocumentFragment {}
+}
+
 // #region components for JSX
 
 interface DOMAttributes<T> {

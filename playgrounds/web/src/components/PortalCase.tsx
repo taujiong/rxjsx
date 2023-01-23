@@ -1,4 +1,4 @@
-import { Portal } from '@rxjsx/core'
+import { Portal } from '@rxjsx/dom'
 import { distinctUntilChanged, startWith } from 'rxjs'
 import { currentClickedElement$ } from '../states/userClick.js'
 

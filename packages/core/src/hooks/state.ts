@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs'
-import { isFunction } from '../utils.js'
+import { isFunction } from '../utils/is.js'
 
 export type Dispatch<TAction> = (value: TAction) => void
 export type Reducer<TState, TAction> = (prevState: TState, action: TAction) => TState

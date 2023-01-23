@@ -1,27 +1,14 @@
-import type {
-  ContainerShape,
-  DisposeFn,
-  ElementShape,
-  JsxText,
-  Shape,
-  TextShape,
-} from '@rxjsx/core'
+import type { DisposeFn, ElementShape, FragmentShape, JsxText, Shape, TextShape } from '@rxjsx/core'
 import { createCoreRenderRoot, isFunction, Renderer } from '@rxjsx/core'
 import { isEvent, isSvg } from './utils.js'
 
-declare module '@rxjsx/core' {
-  interface ElementShape extends Element {}
-  interface TextShape extends Text {}
-  interface ContainerShape extends DocumentFragment {}
-}
-
-class DomRenderer extends Renderer {
+export class DomRenderer extends Renderer {
   public createElement(elementName: string): ElementShape {
     return isSvg(elementName)
       ? document.createElementNS('http://www.w3.org/2000/svg', elementName)
       : document.createElement(elementName)
   }
-  public createContainerElement(): ContainerShape {
+  public createFragment(): FragmentShape {
     return document.createDocumentFragment()
   }
   public setAttribute(shape: ElementShape, key: string, value: any): DisposeFn | undefined {
@@ -68,7 +55,7 @@ class DomRenderer extends Renderer {
     anchorShape: Shape | null,
     shape: Shape
   ): void {
-    const finalParentShape = parentShape ?? this.rootShape
+    const finalParentShape = parentShape ?? (this.rootShape as ElementShape)
 
     if (!anchorShape) {
       finalParentShape.append(shape)
@@ -88,4 +75,4 @@ class DomRenderer extends Renderer {
   }
 }
 
-export const createRenderRoot = (root: ElementShape) => createCoreRenderRoot(root, DomRenderer)
+export const createRenderRoot = (root: ElementShape) => createCoreRenderRoot(root)

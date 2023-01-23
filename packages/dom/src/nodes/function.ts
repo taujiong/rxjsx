@@ -1,16 +1,10 @@
+import type { FunctionRenderContext, RenderNode, Shape } from '@rxjsx/core'
+import { convertToRenderNode } from '@rxjsx/core'
 import type { Observable } from 'rxjs'
 import { combineLatest, isObservable } from 'rxjs'
-import { convertToRenderNode } from '../jsx.js'
-import type { RenderNode, Shape } from '../render/index.js'
-import { ContainerRenderNode } from '../render/index.js'
-import type { FC } from '../utils.js'
+import { ContainerRenderNode } from './base.js'
 
-interface FunctionRenderContext<TProps extends {}> {
-  fn: FC<TProps>
-  props: TProps
-}
-
-export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderNode<
+export class DomFunctionRenderNode<TProps extends {}> extends ContainerRenderNode<
   FunctionRenderContext<TProps>
 > {
   private _internalNode: RenderNode | null = null
@@ -35,9 +29,8 @@ export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderN
     this._internalNode = null
   }
 
-  public override activate(): void {
-    this.preAttach()
-
+  protected override beforeChildrenActivate(): void {
+    super.beforeChildrenActivate()
     const observableProps = Object.entries(this.ctx.props).filter((entry) => isObservable(entry[1]))
     if (observableProps.length === 0) {
       this.internalActivate(this.ctx.props)
@@ -56,15 +49,10 @@ export class FunctionRenderNode<TProps extends {} = {}> extends ContainerRenderN
       })
       this.disposers.push(() => subscription.unsubscribe())
     }
-
-    this.attach()
-    this.postAttach()
   }
 
-  public override deactivate(): void {
-    this.preDetach()
+  public override afterChildrenDeactivate(): void {
+    super.afterChildrenDeactivate()
     this.internalDeactivate()
-    this.detach()
-    this.postAttach()
   }
 }

@@ -1,7 +1,7 @@
-import type { Shape } from '../render/index.js'
-import { ContainerRenderNode } from '../render/index.js'
+import type { Shape } from '@rxjsx/core'
+import { ContainerRenderNode } from './base.js'
 
-export class FragmentRenderNode extends ContainerRenderNode<null> {
+export class DomFragmentRenderNode extends ContainerRenderNode<null> {
   public override get asAnchorShape(): Shape | null {
     if (!this.isConnected || !this.childNodes) return this.prevSiblingShape
 

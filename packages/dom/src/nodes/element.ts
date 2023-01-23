@@ -1,14 +1,10 @@
+import type { ElementRenderContext, ElementShape } from '@rxjsx/core'
+import { Renderer } from '@rxjsx/core'
 import { isObservable } from 'rxjs'
-import { ConcreteRenderNode, Renderer } from '../render/index.js'
-import type { Shape } from '../render/shape.js'
+import { ConcreteRenderNode } from './base.js'
 
-interface ElementRenderContext {
-  type: string
-  props: {}
-}
-
-export class ElementRenderNode extends ConcreteRenderNode<ElementRenderContext> {
-  protected override createShape(): Shape {
+export class DomElementRenderNode extends ConcreteRenderNode<ElementRenderContext, ElementShape> {
+  protected override createShape(): ElementShape {
     const renderer = Renderer.current
 
     const shape = renderer.createElement(this.ctx.type)

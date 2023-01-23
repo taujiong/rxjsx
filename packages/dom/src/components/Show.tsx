@@ -1,5 +1,5 @@
-import type { FC } from '../utils.js'
-import { markAsReactive } from '../utils.js'
+import type { FC } from '@rxjsx/core'
+import { markAsReactive } from '@rxjsx/core'
 
 interface ShowProps {
   when: boolean

@@ -1,12 +1,8 @@
 import { isObservable } from 'rxjs'
-import {
-  ElementRenderNode,
-  FragmentRenderNode,
-  FunctionRenderNode,
-  TextRenderNode,
-} from './nodes/index.js'
-import { RenderNode } from './render/index.js'
-import type { FC, ObservableMaybe } from './utils.js'
+import { isJsxText } from '../utils/is.js'
+import type { ObservableMaybe } from '../utils/reactivity.js'
+import { renderContext } from './context.js'
+import { RenderNode } from './node.js'
 
 export const Fragment = Symbol.for('JSX.FRAGMENT')
 export type FragmentType = typeof Fragment
@@ -26,10 +22,11 @@ export type JsxText = string | number | bigint
  */
 export type JsxElement = ObservableMaybe<JsxText> | RenderNode | null | undefined | false
 
-const TEXT_TYPES = ['string', 'number', 'bigint']
-const isJsxText = (val: unknown): val is JsxText => {
-  return TEXT_TYPES.includes(typeof val)
+export interface IHasChildren {
+  children?: JsxElement | JsxElement[]
 }
+
+export type FC<TProps extends {} | undefined = {}> = (props: TProps & IHasChildren) => JsxElement
 
 export const convertToRenderNode = (child: JsxElement): RenderNode | undefined => {
   if (child === null || child === undefined || child === false) return
@@ -37,7 +34,7 @@ export const convertToRenderNode = (child: JsxElement): RenderNode | undefined =
   if (child instanceof RenderNode) return child
 
   if (isJsxText(child) || isObservable(child)) {
-    return new TextRenderNode({
+    return new renderContext.TextRenderNode({
       content: child,
     })
   }
@@ -58,7 +55,7 @@ export const createRenderNode = (
   if (typeof type === 'function') {
     if (customComponentSet.has(type as FC)) return type(props)
 
-    return new FunctionRenderNode({
+    return new renderContext.FunctionRenderNode({
       fn: type as () => RenderNode,
       props,
     })
@@ -76,31 +73,14 @@ export const createRenderNode = (
   }
 
   if (type === Fragment) {
-    return new FragmentRenderNode(null, childNodes)
+    return new renderContext.FragmentRenderNode(null, childNodes)
   }
 
-  return new ElementRenderNode(
+  return new renderContext.ElementRenderNode(
     {
       type,
       props: restProps,
     },
     childNodes
   )
-}
-
-/**
- * only to satisfy typescript, so that code in components can use jsx
- */
-declare namespace JSX {
-  type Element = JsxElement
-  interface ElementAttributesProperty {
-    props: {}
-  }
-  interface ElementChildrenAttribute {
-    children: {}
-  }
-  interface IntrinsicAttributes {}
-  type ElementClass = never
-  type IntrinsicClassAttributes<T> = never
-  interface IntrinsicElements extends JsxIntrinsicElements {}
 }

@@ -1,4 +1,4 @@
-import { Show } from '@rxjsx/core'
+import { Show } from '@rxjsx/dom'
 import { map, scan, startWith } from 'rxjs'
 import { userClickEvent$ } from '../states/userClick.js'
 

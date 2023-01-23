@@ -1,21 +1,20 @@
+import type { ElementShape, FC, ObservableMaybe, Shape } from '@rxjsx/core'
+import { registerCustomComponet } from '@rxjsx/core'
 import { isObservable } from 'rxjs'
-import { registerCustomComponet } from '../jsx.js'
-import { FunctionRenderNode } from '../nodes/index.js'
-import type { ElementShape, Shape } from '../render/index.js'
-import type { FC, ObservableMaybe } from '../utils.js'
+import { DomFunctionRenderNode } from '../nodes/function.js'
 
 interface PortalProps {
   parentShape: ObservableMaybe<ElementShape>
 }
 
-class PortalRenderNode extends FunctionRenderNode<PortalProps> {
+class PortalRenderNode extends DomFunctionRenderNode<PortalProps> {
   private _currentParentShape: ElementShape | null = null
 
   public override get asParentShape(): Shape | null {
     return this._currentParentShape
   }
 
-  protected override get parentShape(): ElementShape | null {
+  public override get parentShape(): ElementShape | null {
     return this._currentParentShape
   }
 
@@ -23,9 +22,8 @@ class PortalRenderNode extends FunctionRenderNode<PortalProps> {
     return this.prevSiblingShape
   }
 
-  public override activate(): void {
-    this.preAttach()
-
+  protected override beforeChildrenActivate(): void {
+    super.beforeChildrenActivate()
     const parentShape = this.ctx.props.parentShape
     if (!isObservable(parentShape)) {
       this._currentParentShape = parentShape
@@ -38,9 +36,6 @@ class PortalRenderNode extends FunctionRenderNode<PortalProps> {
       })
       this.disposers.push(() => subscription.unsubscribe())
     }
-
-    this.attach()
-    this.postAttach()
   }
 }
 
